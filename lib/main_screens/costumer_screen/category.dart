@@ -8,6 +8,7 @@ import 'package:siopa/categories/kids.dart';
 import 'package:siopa/categories/men.dart';
 import 'package:siopa/categories/shoe.dart';
 import 'package:siopa/categories/women.dart';
+import 'package:siopa/utils/colors.dart';
 import 'package:siopa/widget/fakesearch.dart';
 
 List<ItemsData> items = [
@@ -46,8 +47,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: xBlack87,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        backgroundColor: xBlack87,
         elevation: 0,
         title: const FakeSearch(),
       ),
@@ -63,7 +66,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget sideNav(Size size) {
     return Container(
       height: size.height * 0.8,
-      color: Colors.red.shade100,
+      color: xBlack87,
       width: size.width * 0.3,
       child: ListView.builder(
         itemCount: items.length,
@@ -76,9 +79,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             },
             child: Container(
               height: 100,
-              color: items[index].isSelected == true
-                  ? Colors.red.shade100
-                  : Colors.grey.shade400,
+              color: items[index].isSelected == true ? xBlue : xBlack,
               child: Center(
                 child: Text(items[index].label),
               ),
@@ -92,7 +93,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget categoryView(Size size) {
     return Container(
       height: size.height * 0.8,
-      color: Colors.white,
+      color: xBlack87,
       width: size.width * 0.7,
       child: PageView(
         controller: _pageController,

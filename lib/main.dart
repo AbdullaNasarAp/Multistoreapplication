@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: xBlack87,
         ),
+        iconTheme: const IconThemeData(color: xWhite),
         textTheme: const TextTheme(
           headline1: TextStyle(fontFamily: "Poppins", color: xWhite),
           headline2: TextStyle(fontFamily: "Poppins", color: xWhite),

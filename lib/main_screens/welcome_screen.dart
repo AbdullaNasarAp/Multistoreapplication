@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:siopa/main_screens/costumer_screen/loginscreen.dart';
+import 'package:siopa/main_screens/costumer_screen/auth/loginscreen.dart';
 import 'package:siopa/utils/colors.dart';
 import 'package:siopa/widget/button_container.dart';
 

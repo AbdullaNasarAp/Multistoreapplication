@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:siopa/main_screens/costumer_screen/bottum_nav.dart';
-import 'package:siopa/main_screens/supplier_screen.dart/loginscreen.dart';
+import 'package:siopa/main_screens/costumer_screen/auth/loginscreen.dart';
+import 'package:siopa/main_screens/supplier_screen.dart/auth/signup.dart';
+import 'package:siopa/main_screens/supplier_screen.dart/sbottum_nav.dart';
 import 'package:siopa/main_screens/widget/button_container.dart';
 import 'package:siopa/utils/colors.dart';
 import 'package:siopa/widget/button_container.dart';
 
-class CostumerLoginScreen extends StatelessWidget {
-  const CostumerLoginScreen({super.key});
+class SupplierLoginScreen extends StatelessWidget {
+  const SupplierLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class CostumerLoginScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
-                      color: xBlue.withOpacity(0.3),
+                      color: xGreen.withOpacity(0.3),
                       spreadRadius: 5,
                       blurRadius: 7,
                       offset: const Offset(0, 2),
@@ -79,7 +81,7 @@ class CostumerLoginScreen extends StatelessWidget {
                             height: 250,
                             alignment: Alignment.center,
                             child: const Text(
-                              "Costumer Login",
+                              "Supplier Login",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -136,7 +138,7 @@ class CostumerLoginScreen extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const CostumerHomeScreen(),
+                          builder: (context) => const SupplierHomeScreen(),
                         ));
                       },
                       child: const ButtonContainer(
@@ -156,10 +158,10 @@ class CostumerLoginScreen extends StatelessWidget {
                     ),
                     Textbutton(
                       colors: xBlue,
-                      title: "Do you want to sell products  ? ",
+                      title: "Do you want to buy products  ? ",
                       ontap: () {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const SupplierLoginScreen(),
+                          builder: (context) => const CostumerLoginScreen(),
                         ));
                       },
                     ),
@@ -190,42 +192,16 @@ class CostumerLoginScreen extends StatelessWidget {
                 colors: xGrey,
                 title: "Don't have an account ? ",
                 text: "Sign up",
-                ontap: () {},
+                ontap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SupplierSignUpScreen(),
+                  ));
+                },
               ),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-class Textbutton extends StatelessWidget {
-  const Textbutton({
-    Key? key,
-    required this.title,
-    this.text,
-    required this.ontap,
-    required this.colors,
-  }) : super(key: key);
-  final String title;
-  final String? text;
-  final VoidCallback ontap;
-  final Color colors;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: ontap,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(title, style: TextStyle(color: colors)),
-            Text(
-              text ?? '',
-              style: const TextStyle(color: xBlue, fontSize: 15),
-            ),
-          ],
-        ));
   }
 }

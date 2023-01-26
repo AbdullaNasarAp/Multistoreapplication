@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:siopa/main_screens/costumer_screen/sub_screen/cart.dart';
+import 'package:siopa/main_screens/costumer_screen/cart.dart';
 import 'package:siopa/main_screens/costumer_screen/sub_screen/order.dart';
 import 'package:siopa/main_screens/costumer_screen/sub_screen/wishlist.dart';
 import 'package:siopa/utils/colors.dart';
+import 'package:siopa/widget/app_bar.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -94,7 +95,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Cart(),
+                                  builder: (context) =>
+                                      CartScreen(back: AppBarbackButton()),
                                 ));
                               },
                               child: SizedBox(

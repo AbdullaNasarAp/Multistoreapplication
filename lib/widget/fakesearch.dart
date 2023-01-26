@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siopa/minor_screen.dart/search.dart';
+import 'package:siopa/utils/colors.dart';
 
 class FakeSearch extends StatelessWidget {
   const FakeSearch({
@@ -20,7 +21,7 @@ class FakeSearch extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
             border: Border.all(
               width: 1.4,
-              color: Colors.red.shade100,
+              color: xBlue,
             )),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -43,13 +44,14 @@ class FakeSearch extends StatelessWidget {
             height: 32,
             width: 75,
             decoration: BoxDecoration(
-              color: Colors.red.shade100,
+              border: Border.all(color: xBlue, width: 2),
+              color: xBlack87,
               borderRadius: BorderRadius.circular(25),
             ),
             child: const Center(
               child: Text(
                 "Search",
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+                style: TextStyle(color: xWhite, fontSize: 16),
               ),
             ),
           )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:siopa/utils/colors.dart';
 import 'package:siopa/widget/fakesearch.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,10 +15,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return DefaultTabController(
       length: 9,
       child: Scaffold(
+        backgroundColor: xBlack87,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: xBlack87,
           title: const FakeSearch(),
           bottom: TabBar(
             isScrollable: true,
@@ -36,17 +38,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        body: const TabBarView(children: [
-          Center(child: Text("Men Screen")),
-          Center(child: Text("Women Screen")),
-          Center(child: Text("Shoe Screen")),
-          Center(child: Text("Bags Screen")),
-          Center(child: Text("Electronics Screen")),
-          Center(child: Text("Accessories Screen")),
-          Center(child: Text("Home & Garden Screen")),
-          Center(child: Text("Kids Screen")),
-          Center(child: Text("Beauty Screen")),
-        ]),
+        body: Container(
+          color: xBlack87,
+          child: const TabBarView(children: [
+            Center(child: Text("Men Screen")),
+            Center(child: Text("Women Screen")),
+            Center(child: Text("Shoe Screen")),
+            Center(child: Text("Bags Screen")),
+            Center(child: Text("Electronics Screen")),
+            Center(child: Text("Accessories Screen")),
+            Center(child: Text("Home & Garden Screen")),
+            Center(child: Text("Kids Screen")),
+            Center(child: Text("Beauty Screen")),
+          ]),
+        ),
       ),
     );
   }
