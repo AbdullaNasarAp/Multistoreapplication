@@ -1,4 +1,7 @@
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:siopa/main_screens/costumer_screen/auth/loginscreen.dart';
 import 'package:siopa/main_screens/costumer_screen/cart.dart';
 import 'package:siopa/main_screens/costumer_screen/sub_screen/order.dart';
 import 'package:siopa/main_screens/costumer_screen/sub_screen/wishlist.dart';
@@ -206,13 +209,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           InfoCard(
                             icondata1: Icons.edit,
                             title1: "Edit Profile",
-                            ontap1: () {},
+                            ontap1: () {
+                              log("dfdfdf");
+                            },
                             title2: "Change Password",
                             icondata2: Icons.security,
                             ontap2: () {},
                             title3: "Log Out",
                             icondata3: Icons.logout,
-                            ontap3: () {},
+                            ontap3: () async {
+                              myAlert(context);
+                            },
                           ),
                         ],
                       ),
@@ -221,6 +228,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<dynamic> myAlert(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        backgroundColor: xBlack,
+        title: const Text(
+          "Log out",
+          style: TextStyle(color: xWhite),
+        ),
+        content: const Text(
+          "Are you sure to log out",
+        ),
+        actions: [
+          OutlinedButton(
+            style:
+                ButtonStyle(backgroundColor: MaterialStateProperty.all(xBlue)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text(
+              "No",
+              style: TextStyle(color: xWhite),
+            ),
+          ),
+          OutlinedButton(
+            style:
+                ButtonStyle(backgroundColor: MaterialStateProperty.all(xBlue)),
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const CostumerLoginScreen(),
+                ),
+                (route) {
+                  return false;
+                },
+              );
+            },
+            child: const Text(
+              "Yes",
+              style: TextStyle(color: xWhite),
+            ),
           ),
         ],
       ),
@@ -253,9 +309,9 @@ class InfoCard extends StatelessWidget {
   final IconData icondata1;
   final IconData icondata2;
   final IconData icondata3;
-  final Function() ontap1;
-  final Function() ontap2;
-  final Function() ontap3;
+  final VoidCallback ontap1;
+  final VoidCallback ontap2;
+  final VoidCallback ontap3;
 
   @override
   Widget build(BuildContext context) {
@@ -270,13 +326,10 @@ class InfoCard extends StatelessWidget {
         child: Column(
           children: [
             ProfileTile(
-              title1: title1,
-              sub1: sub1,
-              icondata1: icondata1,
-              function: () {
-                ontap1;
-              },
-            ),
+                title1: title1,
+                sub1: sub1,
+                icondata1: icondata1,
+                function: ontap1),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Divider(
@@ -284,13 +337,10 @@ class InfoCard extends StatelessWidget {
               ),
             ),
             ProfileTile(
-              title1: title2,
-              sub1: sub2,
-              icondata1: icondata2,
-              function: () {
-                ontap2;
-              },
-            ),
+                title1: title2,
+                sub1: sub2,
+                icondata1: icondata2,
+                function: ontap2),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Divider(
@@ -298,13 +348,10 @@ class InfoCard extends StatelessWidget {
               ),
             ),
             ProfileTile(
-              title1: title3,
-              sub1: sub3,
-              icondata1: icondata3,
-              function: () {
-                ontap3;
-              },
-            ),
+                title1: title3,
+                sub1: sub3,
+                icondata1: icondata3,
+                function: ontap3),
           ],
         ),
       ),
@@ -324,14 +371,12 @@ class ProfileTile extends StatelessWidget {
   final String title1;
   final String? sub1;
   final IconData icondata1;
-  final Function() function;
+  final VoidCallback function;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        function;
-      },
+      onTap: function,
       title: Text(
         title1,
         style: TextStyle(color: xWhite),

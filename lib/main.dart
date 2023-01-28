@@ -1,8 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:siopa/main_screens/welcome_screen.dart';
 import 'package:siopa/utils/colors.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 

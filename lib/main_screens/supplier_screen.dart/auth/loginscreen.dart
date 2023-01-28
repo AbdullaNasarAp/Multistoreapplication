@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:siopa/main_screens/costumer_screen/bottum_nav.dart';
 import 'package:siopa/main_screens/costumer_screen/auth/loginscreen.dart';
 import 'package:siopa/main_screens/supplier_screen.dart/auth/signup.dart';
 import 'package:siopa/main_screens/supplier_screen.dart/sbottum_nav.dart';

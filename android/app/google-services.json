@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "361414286535",
-    "project_id": "siopa-75c14",
-    "storage_bucket": "siopa-75c14.appspot.com"
+    "project_number": "277495732946",
+    "project_id": "siopa-3fd99",
+    "storage_bucket": "siopa-3fd99.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:361414286535:android:d5903ca9881b0d735ef2e2",
+        "mobilesdk_app_id": "1:277495732946:android:2ab674cd62777b0dc96b0b",
         "android_client_info": {
           "package_name": "com.example.siopa"
         }
       },
       "oauth_client": [
         {
-          "client_id": "361414286535-1dkpjjpqku57in9168dli9ncoflk62te.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.siopa",
-            "certificate_hash": "e62bbc9c8fdb33acb9b6802832b73d9f02a56e97"
-          }
-        },
-        {
-          "client_id": "361414286535-9vij30h864tn0u1ij7nld79tdh0bn6jp.apps.googleusercontent.com",
+          "client_id": "277495732946-e6r987lefk737dpon695q9gv6silhvt0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB8SgI-Gx4CTq3yHKb305kOxsYkxrprpDs"
+          "current_key": "AIzaSyA_Poo02ZepQIuU9c_pE9B2xLvuna5TSx0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "361414286535-9vij30h864tn0u1ij7nld79tdh0bn6jp.apps.googleusercontent.com",
+              "client_id": "277495732946-e6r987lefk737dpon695q9gv6silhvt0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -9,7 +9,7 @@ class ContainerButtonImage extends StatelessWidget {
     required this.title,
   }) : super(key: key);
   final String image;
-  final Function() onPress;
+  final VoidCallback onPress;
   final String title;
   @override
   Widget build(BuildContext context) {

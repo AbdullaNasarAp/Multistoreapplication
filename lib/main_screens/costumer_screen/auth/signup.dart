@@ -1,18 +1,18 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebasestorage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:siopa/main_screens/costumer_screen/auth/loginscreen.dart';
 import 'package:siopa/main_screens/costumer_screen/auth/widgets.dart';
 import 'package:siopa/main_screens/costumer_screen/bottum_nav.dart';
 import 'package:siopa/main_screens/supplier_screen.dart/auth/loginscreen.dart';
-import 'package:siopa/main_screens/widget/button_container.dart';
 import 'package:siopa/utils/colors.dart';
 import 'package:siopa/widget/button_container.dart';
-
-// final TextEditingController _nameController = TextEditingController();
-// final TextEditingController _emailController = TextEditingController();
-// final TextEditingController _passwordController = TextEditingController();
 
 class CostumerSignUpScreen extends StatefulWidget {
   const CostumerSignUpScreen({super.key});
@@ -29,9 +29,14 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
   late String name;
   late String email;
   late String password;
+  late String profileImage;
+  late String _uid;
+  bool processing = false;
   XFile? _imgFile;
   dynamic _pickImageError;
   final ImagePicker _picker = ImagePicker();
+  CollectionReference customer =
+      FirebaseFirestore.instance.collection('customers');
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +87,7 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                             title: "Costumer Sign Up",
                             ls: 0,
                             fontwght: FontWeight.bold,
-                            fontsz: 24),
+                            fontsz: 20),
                         const SizedBox(
                           height: 20,
                         ),
@@ -303,42 +308,24 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                           builder: (context) => const CostumerHomeScreen(),
                         ));
                       },
-                      child: InkWell(
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (_imgFile != null) {
-                              log("Img selected");
-                            } else {
-                              MyMessengerHelper.showSnackBar(
-                                  _scaffoldKey, "Pls Pick a Image");
-                            }
-                            log("valid");
-
-                            log(name);
-                            log(email);
-                            log(password);
-                            _formKey.currentState!.reset();
-                            setState(() {
-                              _imgFile = null;
-                            });
-                          } else {
-                            MyMessengerHelper.showSnackBar(
-                                _scaffoldKey, "Pls fill all fields");
-                            log("Not valid");
-                          }
-                        },
-                        child: const ButtonContainer(
-                          kWidth: 400,
-                          kHeight: 50,
-                          kColors: xBlue,
-                          title: "Sign Up",
-                          ls: 0,
-                          fontwght: FontWeight.normal,
-                          fontsz: 14,
-                          bRadius: 25,
-                          icons: Icons.arrow_forward,
-                        ),
-                      ),
+                      child: processing == true
+                          ? const CircularProgressIndicator()
+                          : InkWell(
+                              onTap: () {
+                                signUp();
+                              },
+                              child: const ButtonContainer(
+                                kWidth: 400,
+                                kHeight: 50,
+                                kColors: xBlue,
+                                title: "Sign Up",
+                                ls: 0,
+                                fontwght: FontWeight.normal,
+                                fontsz: 14,
+                                bRadius: 25,
+                                icons: Icons.arrow_forward,
+                              ),
+                            ),
                     ),
                     const SizedBox(
                       height: 10,
@@ -358,18 +345,92 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ContainerButtonImage(
-                            image: "images/inapp/google.png",
-                            onPress: () {},
-                            title: "Google"),
-                        ContainerButtonImage(
-                            image: "images/inapp/facebook.png",
-                            onPress: () {},
-                            title: "Facebook"),
-                        ContainerButtonImage(
-                            image: "images/inapp/guest.png",
-                            onPress: () {},
-                            title: "Guest"),
+                        InkWell(
+                          onTap: () {
+                            FirebaseAuth.instance.signInAnonymously();
+                          },
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: xBlack,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(
+                                    "images/inapp/google.png",
+                                    filterQuality: FilterQuality.high,
+                                    cacheHeight: 40,
+                                    cacheWidth: 40,
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Google",
+                                  style: TextStyle(color: xGrey),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: xBlack,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(
+                                    "images/inapp/facebook.png",
+                                    filterQuality: FilterQuality.high,
+                                    cacheHeight: 40,
+                                    cacheWidth: 40,
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Facebook",
+                                  style: TextStyle(color: xGrey),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            FirebaseAuth.instance.signInAnonymously();
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) => const CostumerHomeScreen(),
+                            ));
+                          },
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: xBlack,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(
+                                    "images/inapp/guest.png",
+                                    filterQuality: FilterQuality.high,
+                                    cacheHeight: 40,
+                                    cacheWidth: 40,
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Guest",
+                                  style: TextStyle(color: xGrey),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -380,6 +441,67 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
         ),
       ),
     );
+  }
+
+  signUp() async {
+    setState(() {
+      processing = true;
+    });
+    if (_formKey.currentState!.validate()) {
+      if (_imgFile != null) {
+        try {
+          await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email, password: password);
+
+          firebasestorage.Reference ref = firebasestorage
+              .FirebaseStorage.instance
+              .ref('cus-images/$email.jpg');
+          await ref.putFile(File(_imgFile!.path));
+
+          _uid = FirebaseAuth.instance.currentUser!.uid;
+          profileImage = await ref.getDownloadURL();
+          await customer.doc(_uid).set({
+            'name': name,
+            'email': email,
+            'profileimage': profileImage,
+            'phone': '',
+            'address': '',
+            'cid': _uid,
+          });
+          _formKey.currentState!.reset();
+          setState(() {
+            _imgFile = null;
+          });
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const CostumerHomeScreen(),
+          ));
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'weak-password') {
+            setState(() {
+              processing = false;
+            });
+            MyMessengerHelper.showSnackBar(
+                _scaffoldKey, "The password provided is too weak");
+          } else if (e.code == 'email-already-in-use') {
+            setState(() {
+              processing = false;
+            });
+            MyMessengerHelper.showSnackBar(
+                _scaffoldKey, "The account with this email already exist");
+          }
+        }
+      } else {
+        setState(() {
+          processing = false;
+        });
+        MyMessengerHelper.showSnackBar(_scaffoldKey, "Pls Pick a Image");
+      }
+    } else {
+      setState(() {
+        processing = false;
+      });
+      MyMessengerHelper.showSnackBar(_scaffoldKey, "Pls fill all fields");
+    }
   }
 
   void pickImageFromCamera() async {
