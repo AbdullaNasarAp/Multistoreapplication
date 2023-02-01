@@ -2,8 +2,8 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:siopa/main_screens/welcome_screen.dart';
-import 'package:siopa/utils/colors.dart';
+import 'package:siopa/app/screen/main_screens/welcome_screen.dart';
+import 'package:siopa/app/utils/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
