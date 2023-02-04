@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     onPressed: () {
                                       Navigator.of(context)
                                           .push(MaterialPageRoute(
-                                        builder: (context) => CartScreen(
+                                        builder: (context) => const CartScreen(
                                             back: AppBarbackButton()),
                                       ));
                                     },
@@ -201,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     onPressed: () {
                                       Navigator.of(context)
                                           .push(MaterialPageRoute(
-                                        builder: (context) => Wishlist(),
+                                        builder: (context) => const Wishlist(),
                                       ));
                                     },
                                     child: SizedBox(
@@ -397,8 +397,8 @@ class InfoCard extends StatelessWidget {
                 sub1: sub1,
                 icondata1: icondata1,
                 function: ontap1),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.0),
               child: Divider(
                 color: xBlue,
               ),
@@ -446,11 +446,11 @@ class ProfileTile extends StatelessWidget {
       onTap: function,
       title: Text(
         title1,
-        style: TextStyle(color: xWhite),
+        style: const TextStyle(color: xWhite),
       ),
       subtitle: Text(
         sub1 ?? '',
-        style: TextStyle(color: xWhite),
+        style: const TextStyle(color: xWhite),
       ),
       leading: Icon(
         icondata1,

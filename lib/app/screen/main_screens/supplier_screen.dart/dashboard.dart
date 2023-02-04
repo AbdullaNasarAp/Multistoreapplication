@@ -178,7 +178,7 @@ class DashboardScreen extends StatelessWidget {
               FirebaseAuth.instance.signOut();
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => const SupplierLoginScreen(),
+                  builder: (context) => SupplierLoginScreen(),
                 ),
                 (route) {
                   return false;

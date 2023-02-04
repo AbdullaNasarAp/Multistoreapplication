@@ -16,10 +16,9 @@ class SupplierHomeScreen extends StatefulWidget {
 class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
   int _selectedIndex = 0;
   final List<Widget> _tabs = const [
-    HomeScreen(),
+    DashboardScreen(),
     CategoryScreen(),
     StoresScreen(),
-    DashboardScreen(),
     UploadsScreen()
   ];
   @override
@@ -38,8 +37,8 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
         currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
+            icon: Icon(Icons.dashboard),
+            label: "Dashboard",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
@@ -48,10 +47,6 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.shop),
             label: "Stores",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: "Dashboard",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.upload),

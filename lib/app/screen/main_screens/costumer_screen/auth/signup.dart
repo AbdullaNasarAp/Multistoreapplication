@@ -1,14 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:developer';
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebasestorage;
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/c_signup_c.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/auth/loginscreen.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/auth/widgets.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/bottum_nav.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/auth/loginscreen.dart';
 import 'package:siopa/app/utils/colors.dart';
@@ -23,22 +18,9 @@ class CostumerSignUpScreen extends StatefulWidget {
 }
 
 class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
-  bool passwordVisible = false;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldMessengerState> scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
-  late String name;
-  late String email;
-  late String password;
-  late String profileImage;
-  late String _uid;
-  late String _uids;
-  bool processing = false;
-  XFile? _imgFile;
-  dynamic _pickImageError;
-  final ImagePicker _picker = ImagePicker();
-  CollectionReference customer =
-      FirebaseFirestore.instance.collection('customers');
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +29,7 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
         FocusScope.of(context).unfocus();
       },
       child: ScaffoldMessenger(
-        key: _scaffoldKey,
+        key: scaffoldKey,
         child: Scaffold(
           backgroundColor: xBlack87,
           body: SingleChildScrollView(
@@ -55,407 +37,408 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                 child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Sopia",
-                            style: TextStyle(
-                              color: xWhite,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Icon(
-                            Icons.adobe_rounded,
-                            color: xBlue,
-                            size: 38,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                key: formKey,
+                child: Consumer<CostumerSignupProvider>(
+                  builder: (context, cSp, child) {
+                    return Column(
                       children: [
-                        const TextTitle(
-                            title: "Costumer Sign Up",
-                            ls: 0,
-                            fontwght: FontWeight.bold,
-                            fontsz: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                "Sopia",
+                                style: TextStyle(
+                                  color: xWhite,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Icon(
+                                Icons.adobe_rounded,
+                                color: xBlue,
+                                size: 38,
+                              ),
+                            ],
+                          ),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
                         Container(
-                            decoration: BoxDecoration(
-                                color: xBlack87,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: xBlue, width: 1)),
-                            height: 150,
-                            width: 150,
-                            child: _imgFile == null
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Icon(
-                                        Icons.add_a_photo,
-                                        size: 20,
-                                        color: xWhite,
-                                      ),
-                                      TextTitle(
-                                          title: "Add your Image",
-                                          ls: 0,
-                                          fontwght: FontWeight.normal,
-                                          fontsz: 10)
-                                    ],
-                                  )
-                                : Image(
-                                    fit: BoxFit.cover,
-                                    image: FileImage(File(_imgFile!.path)))),
+                          height: 200,
+                          margin: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: xBlack87,
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                color: xBlue.withOpacity(0.3),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Stack(
+                              children: <Widget>[
+                                Positioned(
+                                    top: -20,
+                                    left: -50,
+                                    child: Container(
+                                        height: 250,
+                                        width: 250,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: xBlue.withOpacity(0.1)))),
+                                Positioned(
+                                    left: -80,
+                                    top: -50,
+                                    child: Container(
+                                        height: 180,
+                                        width: 180,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: xBlack.withOpacity(0.5)))),
+                                Positioned(
+                                  child: Container(
+                                      height: 250,
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        "Costumer Signup",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter you Fullname";
+                            }
+                            return null;
+                          },
+                          //  controller: _nameController,
+                          onChanged: (value) {
+                            cSp.name = value;
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'Name',
+                              border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xBlue),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              contentPadding: const EdgeInsets.all(13),
+                              labelStyle: const TextStyle(color: xWhite),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xBlue),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              enabled: true,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xGreen),
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter you Email";
+                            } else if (value.isEmailValidate() == false) {
+                              return "Invalid Email";
+                            } else if (value.isEmailValidate() == true) {
+                              return null;
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            cSp.email = value;
+                          },
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xBlue),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              labelText: 'Email',
+                              contentPadding: const EdgeInsets.all(13),
+                              labelStyle: const TextStyle(color: xWhite),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xBlue),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xGreen),
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter you Password";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            cSp.password = value;
+                          },
+                          // controller: _passwordController,
+                          obscureText: cSp.passwordVisible,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xBlue),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    cSp.passwordVisibily();
+                                  },
+                                  icon: Icon(
+                                    cSp.passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: xWhite,
+                                  )),
+                              labelText: 'Password',
+                              contentPadding: const EdgeInsets.all(13),
+                              labelStyle: const TextStyle(color: xWhite),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xBlue),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xGreen),
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter you Password";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            cSp.password = value;
+                          },
+                          obscureText: cSp.passwordVisible,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xBlue),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    cSp.passwordVisibily();
+                                  },
+                                  icon: Icon(
+                                    cSp.passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: xWhite,
+                                  )),
+                              labelText: 'Confirm Password',
+                              contentPadding: const EdgeInsets.all(13),
+                              labelStyle: const TextStyle(color: xWhite),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xBlue),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(width: 2, color: xGreen),
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) => const CostumerHomeScreen(),
+                            ));
+                          },
+                          child: cSp.processing == true
+                              ? const CircularProgressIndicator()
+                              : InkWell(
+                                  onTap: () {
+                                    cSp.signUp(context, formKey, scaffoldKey);
+                                  },
+                                  child: const ButtonContainer(
+                                    kWidth: 400,
+                                    kHeight: 50,
+                                    kColors: xBlue,
+                                    title: "Sign Up",
+                                    ls: 0,
+                                    fontwght: FontWeight.normal,
+                                    fontsz: 14,
+                                    bRadius: 25,
+                                    icons: Icons.arrow_forward,
+                                  ),
+                                ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Textbutton(
+                          colors: xBlue,
+                          title: "Do you want to sell products  ? ",
+                          ontap: () {
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) => SupplierLoginScreen(),
+                            ));
+                          },
+                        ),
                         const SizedBox(
                           height: 10,
                         ),
                         Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  pickImageFromCamera();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: xBlack87,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border:
-                                          Border.all(color: xBlue, width: 1)),
-                                  height: 45,
-                                  width: 45,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Icon(Icons.camera_alt),
-                                      TextTitle(
-                                          title: "Camera",
-                                          ls: 0,
-                                          fontwght: FontWeight.normal,
-                                          fontsz: 8)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  pickImageFromGallery();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: xBlack87,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border:
-                                          Border.all(color: xBlue, width: 1)),
-                                  height: 45,
-                                  width: 45,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Icon(Icons.album),
-                                      TextTitle(
-                                          title: "Gallery",
-                                          ls: 0,
-                                          fontwght: FontWeight.normal,
-                                          fontsz: 8)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ])
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Enter you Fullname";
-                        }
-                        return null;
-                      },
-                      //  controller: _nameController,
-                      onChanged: (value) {
-                        name = value;
-                      },
-                      decoration: InputDecoration(
-                          labelText: 'Name',
-                          border: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xBlue),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          contentPadding: const EdgeInsets.all(13),
-                          labelStyle: const TextStyle(color: xWhite),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xBlue),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          enabled: true,
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xGreen),
-                            borderRadius: BorderRadius.circular(25),
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Enter you Email";
-                        } else if (value.isEmailValidate() == false) {
-                          return "Invalid Email";
-                        } else if (value.isEmailValidate() == true) {
-                          return null;
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        email = value;
-                      },
-                      // controller: _emailController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xBlue),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          labelText: 'Email',
-                          contentPadding: const EdgeInsets.all(13),
-                          labelStyle: const TextStyle(color: xWhite),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xBlue),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xGreen),
-                            borderRadius: BorderRadius.circular(25),
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Enter you Password";
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        password = value;
-                      },
-                      // controller: _passwordController,
-                      obscureText: passwordVisible,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xBlue),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  passwordVisible = !passwordVisible;
-                                });
-                              },
-                              icon: Icon(
-                                passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: xWhite,
-                              )),
-                          labelText: 'Password',
-                          contentPadding: const EdgeInsets.all(13),
-                          labelStyle: const TextStyle(color: xWhite),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xBlue),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: xGreen),
-                            borderRadius: BorderRadius.circular(25),
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const CostumerHomeScreen(),
-                        ));
-                      },
-                      child: processing == true
-                          ? const CircularProgressIndicator()
-                          : InkWell(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
                               onTap: () {
-                                signUp();
+                                FirebaseAuth.instance.signInAnonymously();
                               },
-                              child: const ButtonContainer(
-                                kWidth: 400,
-                                kHeight: 50,
-                                kColors: xBlue,
-                                title: "Sign Up",
-                                ls: 0,
-                                fontwght: FontWeight.normal,
-                                fontsz: 14,
-                                bRadius: 25,
-                                icons: Icons.arrow_forward,
-                              ),
-                            ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Textbutton(
-                      colors: xBlue,
-                      title: "Do you want to sell products  ? ",
-                      ontap: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const SupplierLoginScreen(),
-                        ));
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            FirebaseAuth.instance.signInAnonymously();
-                          },
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: xBlack,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    "images/inapp/google.png",
-                                    filterQuality: FilterQuality.high,
-                                    cacheHeight: 40,
-                                    cacheWidth: 40,
-                                  ),
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Google",
-                                  style: TextStyle(color: xGrey),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: xBlack,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    "images/inapp/facebook.png",
-                                    filterQuality: FilterQuality.high,
-                                    cacheHeight: 40,
-                                    cacheWidth: 40,
-                                  ),
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Facebook",
-                                  style: TextStyle(color: xGrey),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        processing == true
-                            ? const CircularProgressIndicator()
-                            : InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    processing = true;
-                                  });
-                                  FirebaseAuth.instance
-                                      .signInAnonymously()
-                                      .whenComplete(() async {
-                                    _uids =
-                                        FirebaseAuth.instance.currentUser!.uid;
-                                    await customer.doc(_uids).set({
-                                      'name': '',
-                                      'email': '',
-                                      'profileimage': '',
-                                      'phone': '',
-                                      'address': '',
-                                      'cid': _uids,
-                                    });
-                                  });
-
-                                  Navigator.of(context)
-                                      .pushReplacement(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CostumerHomeScreen(),
-                                  ));
-                                },
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: xBlack,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          "images/inapp/guest.png",
-                                          filterQuality: FilterQuality.high,
-                                          cacheHeight: 40,
-                                          cacheWidth: 40,
-                                        ),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: xBlack,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        "images/inapp/google.png",
+                                        filterQuality: FilterQuality.high,
+                                        cacheHeight: 40,
+                                        cacheWidth: 40,
                                       ),
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Guest",
-                                        style: TextStyle(color: xGrey),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Google",
+                                      style: TextStyle(color: xGrey),
+                                    ),
+                                  )
+                                ],
                               ),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: xBlack,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        "images/inapp/facebook.png",
+                                        filterQuality: FilterQuality.high,
+                                        cacheHeight: 40,
+                                        cacheWidth: 40,
+                                      ),
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Facebook",
+                                      style: TextStyle(color: xGrey),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            cSp.processing == true
+                                ? const CircularProgressIndicator()
+                                : InkWell(
+                                    onTap: () async {
+                                      cSp.processing = true;
+
+                                      FirebaseAuth.instance
+                                          .signInAnonymously()
+                                          .whenComplete(() async {
+                                        cSp.uids = FirebaseAuth
+                                            .instance.currentUser!.uid;
+                                        await cSp.customer.doc(cSp.uids).set({
+                                          'name': '',
+                                          'email': '',
+                                          'profileimage': '',
+                                          'phone': '',
+                                          'address': '',
+                                          'cid': cSp.uids,
+                                        });
+                                      });
+
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CostumerHomeScreen(),
+                                      ));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundColor: xBlack,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Image.asset(
+                                              "images/inapp/guest.png",
+                                              filterQuality: FilterQuality.high,
+                                              cacheHeight: 40,
+                                              cacheWidth: 40,
+                                            ),
+                                          ),
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "Guest",
+                                            style: TextStyle(color: xGrey),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                          ],
+                        ),
                       ],
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
             )),
@@ -463,104 +446,5 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
         ),
       ),
     );
-  }
-
-  signUp() async {
-    setState(() {
-      processing = true;
-    });
-    if (_formKey.currentState!.validate()) {
-      if (_imgFile != null) {
-        try {
-          await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: email, password: password);
-
-          firebasestorage.Reference ref = firebasestorage
-              .FirebaseStorage.instance
-              .ref('cus-images/$email.jpg');
-          await ref.putFile(File(_imgFile!.path));
-
-          _uid = FirebaseAuth.instance.currentUser!.uid;
-          profileImage = await ref.getDownloadURL();
-          await customer.doc(_uid).set({
-            'name': name,
-            'email': email,
-            'profileimage': profileImage,
-            'phone': '',
-            'address': '',
-            'cid': _uid,
-          });
-          _formKey.currentState!.reset();
-          setState(() {
-            _imgFile = null;
-          });
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const CostumerLoginScreen(),
-          ));
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'weak-password') {
-            setState(() {
-              processing = false;
-            });
-            MyMessengerHelper.showSnackBar(
-                _scaffoldKey, "The password provided is too weak");
-          } else if (e.code == 'email-already-in-use') {
-            setState(() {
-              processing = false;
-            });
-            MyMessengerHelper.showSnackBar(
-                _scaffoldKey, "The account with this email already exist");
-          }
-        }
-      } else {
-        setState(() {
-          processing = false;
-        });
-        MyMessengerHelper.showSnackBar(_scaffoldKey, "Pls Pick a Image");
-      }
-    } else {
-      setState(() {
-        processing = false;
-      });
-      MyMessengerHelper.showSnackBar(_scaffoldKey, "Pls fill all fields");
-    }
-  }
-
-  void pickImageFromCamera() async {
-    try {
-      final pickedImage = await _picker.pickImage(
-        source: ImageSource.camera,
-        maxHeight: 300,
-        maxWidth: 300,
-        imageQuality: 100,
-      );
-      setState(() {
-        _imgFile = pickedImage;
-      });
-    } catch (e) {
-      setState(() {
-        _pickImageError = e;
-      });
-      log(_pickImageError);
-    }
-  }
-
-  void pickImageFromGallery() async {
-    try {
-      final pickedImage = await _picker.pickImage(
-        source: ImageSource.gallery,
-        maxHeight: 300,
-        maxWidth: 300,
-        imageQuality: 100,
-      );
-      setState(() {
-        _imgFile = pickedImage;
-      });
-    } catch (e) {
-      setState(() {
-        _pickImageError = e;
-      });
-      log(_pickImageError);
-    }
   }
 }

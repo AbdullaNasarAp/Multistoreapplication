@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/c_login_c.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/auth/signup.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/auth/widgets.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/bottum_nav.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/auth/loginscreen.dart';
-import 'package:siopa/app/screen/main_screens/widget/button_container.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/utils/regex.dart';
 import 'package:siopa/app/widget/button_container.dart';
@@ -17,15 +15,9 @@ class CostumerLoginScreen extends StatefulWidget {
 }
 
 class _CostumerLoginScreenState extends State<CostumerLoginScreen> {
-  bool passwordVisible = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
-
-  late String email;
-  late String password;
-  late String profileImage;
-  bool processing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -120,138 +112,139 @@ class _CostumerLoginScreenState extends State<CostumerLoginScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: Form(
                       key: _formKey,
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter you Email";
-                              } else if (value.isEmailValidate() == false) {
-                                return "Invalid Email";
-                              } else if (value.isEmailValidate() == true) {
-                                return null;
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              email = value;
-                            },
-                            // controller: _emailController,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(width: 2, color: xBlue),
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                labelText: 'Email',
-                                contentPadding: const EdgeInsets.all(13),
-                                labelStyle: const TextStyle(color: xWhite),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(width: 2, color: xBlue),
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(width: 2, color: xGreen),
-                                  borderRadius: BorderRadius.circular(25),
-                                )),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter you Password";
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              password = value;
-                            },
-                            // controller: _passwordController,
-                            obscureText: passwordVisible,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(width: 2, color: xBlue),
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        passwordVisible = !passwordVisible;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      passwordVisible
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: xWhite,
+                      child: Consumer<CostumerLoginProvider>(
+                        builder: (context, cLp, child) {
+                          return Column(
+                            children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter you Email";
+                                  } else if (value.isEmailValidate() == false) {
+                                    return "Invalid Email";
+                                  } else if (value.isEmailValidate() == true) {
+                                    return null;
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  cLp.email = value;
+                                },
+                                // controller: _emailController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: xBlue),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    labelText: 'Email',
+                                    contentPadding: const EdgeInsets.all(13),
+                                    labelStyle: const TextStyle(color: xWhite),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: xBlue),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: xGreen),
+                                      borderRadius: BorderRadius.circular(25),
                                     )),
-                                labelText: 'Password',
-                                contentPadding: const EdgeInsets.all(13),
-                                labelStyle: const TextStyle(color: xWhite),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(width: 2, color: xBlue),
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(width: 2, color: xGreen),
-                                  borderRadius: BorderRadius.circular(25),
-                                )),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextButton(
-                              onPressed: () {},
-                              child: const Text("Forget Password ?")),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              login();
-                            },
-                            child: processing == true
-                                ? const CircularProgressIndicator()
-                                : const ButtonContainer(
-                                    kWidth: 400,
-                                    kHeight: 50,
-                                    kColors: xBlue,
-                                    title: "Login",
-                                    ls: 0,
-                                    fontwght: FontWeight.normal,
-                                    fontsz: 14,
-                                    bRadius: 25,
-                                    icons: Icons.arrow_forward,
-                                  ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Textbutton(
-                            colors: xBlue,
-                            title: "Do you want to sell products  ? ",
-                            ontap: () {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (context) =>
-                                    const SupplierLoginScreen(),
-                              ));
-                            },
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter you Password";
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  cLp.password = value;
+                                },
+                                // controller: _passwordController,
+                                obscureText: cLp.passwordVisible,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: xBlue),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          cLp.passwordVisibily();
+                                        },
+                                        icon: Icon(
+                                          cLp.passwordVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: xWhite,
+                                        )),
+                                    labelText: 'Password',
+                                    contentPadding: const EdgeInsets.all(13),
+                                    labelStyle: const TextStyle(color: xWhite),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: xBlue),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: xGreen),
+                                      borderRadius: BorderRadius.circular(25),
+                                    )),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              TextButton(
+                                  onPressed: () {},
+                                  child: const Text("Forget Password ?")),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  cLp.login(context, _formKey, _scaffoldKey);
+                                },
+                                child: cLp.processing == true
+                                    ? const CircularProgressIndicator()
+                                    : const ButtonContainer(
+                                        kWidth: 400,
+                                        kHeight: 50,
+                                        kColors: xBlue,
+                                        title: "Login",
+                                        ls: 0,
+                                        fontwght: FontWeight.normal,
+                                        fontsz: 14,
+                                        bRadius: 25,
+                                        icons: Icons.arrow_forward,
+                                      ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Textbutton(
+                                colors: xBlue,
+                                title: "Do you want to sell products  ? ",
+                                ontap: () {
+                                  Navigator.of(context)
+                                      .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => SupplierLoginScreen(),
+                                  ));
+                                },
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -272,43 +265,6 @@ class _CostumerLoginScreenState extends State<CostumerLoginScreen> {
         ),
       ),
     );
-  }
-
-  login() async {
-    setState(() {
-      processing = true;
-    });
-    if (_formKey.currentState!.validate()) {
-      try {
-        await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
-
-        _formKey.currentState!.reset();
-
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const CostumerHomeScreen(),
-        ));
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          setState(() {
-            processing = false;
-          });
-          MyMessengerHelper.showSnackBar(
-              _scaffoldKey, "No user exist with this email");
-        } else if (e.code == 'wrong-password') {
-          setState(() {
-            processing = false;
-          });
-          MyMessengerHelper.showSnackBar(_scaffoldKey, "Password is Incorrect");
-        }
-      }
-    } else {
-      setState(() {
-        processing = false;
-      });
-      MyMessengerHelper.showSnackBar(_scaffoldKey, "Pls fill all fields");
-    }
   }
 }
 
