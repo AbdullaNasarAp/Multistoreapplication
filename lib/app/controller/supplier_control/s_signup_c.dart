@@ -46,9 +46,12 @@ class SupplierSignupProvider with ChangeNotifier {
             'sid': uid,
             'coverimage': '',
           });
+
           formKey.currentState!.reset();
 
           imgFile = null;
+          notifyListeners();
+          processing = false;
           notifyListeners();
           // ignore: use_build_context_synchronously
           Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -77,6 +80,7 @@ class SupplierSignupProvider with ChangeNotifier {
       notifyListeners();
       MyMessengerHelper.showSnackBar(scaffoldKeys, "Pls fill all fields");
     }
+
     notifyListeners();
   }
 

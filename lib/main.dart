@@ -7,6 +7,7 @@ import 'package:siopa/app/controller/costumer_control/c_login_c.dart';
 import 'package:siopa/app/controller/costumer_control/c_signup_c.dart';
 import 'package:siopa/app/controller/supplier_control/s_login_c.dart';
 import 'package:siopa/app/controller/supplier_control/s_signup_c.dart';
+import 'package:siopa/app/controller/supplier_control/upload.dart';
 import 'package:siopa/app/screen/main_screens/welcome_screen.dart';
 import 'package:siopa/app/utils/colors.dart';
 
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SupplierLoginProvider()),
         ChangeNotifierProvider(create: (context) => SupplierSignupProvider()),
         ChangeNotifierProvider(create: (context) => CostumerSignupProvider()),
-        ChangeNotifierProvider(create: (context) => CostumerLoginProvider())
+        ChangeNotifierProvider(create: (context) => CostumerLoginProvider()),
+        ChangeNotifierProvider(create: (context) => UploadProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(

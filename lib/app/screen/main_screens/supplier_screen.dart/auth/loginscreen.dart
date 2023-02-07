@@ -228,8 +228,7 @@ class SupplierLoginScreen extends StatelessWidget {
                                 ontap: () {
                                   Navigator.of(context)
                                       .pushReplacement(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CostumerLoginScreen(),
+                                    builder: (context) => CostumerLoginScreen(),
                                   ));
                                 },
                               ),

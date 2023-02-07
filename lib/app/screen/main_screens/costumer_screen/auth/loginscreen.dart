@@ -7,15 +7,11 @@ import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/utils/regex.dart';
 import 'package:siopa/app/widget/button_container.dart';
 
-class CostumerLoginScreen extends StatefulWidget {
-  const CostumerLoginScreen({super.key});
+class CostumerLoginScreen extends StatelessWidget {
+  CostumerLoginScreen({super.key});
 
-  @override
-  State<CostumerLoginScreen> createState() => _CostumerLoginScreenState();
-}
-
-class _CostumerLoginScreenState extends State<CostumerLoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
 

@@ -333,7 +333,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               FirebaseAuth.instance.signOut();
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => const CostumerLoginScreen(),
+                  builder: (context) => CostumerLoginScreen(),
                 ),
                 (route) {
                   return false;

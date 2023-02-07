@@ -65,21 +65,27 @@ class TextTitle extends StatelessWidget {
       required this.title,
       required this.ls,
       required this.fontwght,
-      required this.fontsz});
+      required this.fontsz,
+      this.overflow,
+      this.mL});
   final String title;
   final double ls;
   final FontWeight fontwght;
   final double fontsz;
+  final TextOverflow? overflow;
+  final int? mL;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
+      maxLines: mL,
       style: TextStyle(
         color: xWhite,
         letterSpacing: ls,
         fontWeight: fontwght,
         fontSize: fontsz,
+        overflow: overflow,
       ),
     );
   }

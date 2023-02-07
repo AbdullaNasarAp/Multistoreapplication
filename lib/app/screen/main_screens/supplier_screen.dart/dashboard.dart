@@ -5,6 +5,7 @@ import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_componen
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/edit_profile.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/manage_product.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/my_store.dart';
+import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/my_product.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/orders.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/statics.dart';
 import 'package:siopa/app/utils/colors.dart';
@@ -197,6 +198,7 @@ class DashboardScreen extends StatelessWidget {
 }
 
 List<String> dashName = [
+  "my\nProduct",
   "my\nstore",
   "order",
   "edit\nprofile",
@@ -204,7 +206,8 @@ List<String> dashName = [
   "balance",
   "statics"
 ];
-List<Widget> dashNav = [
+List<Widget> dashNav = const [
+  MyProduct(),
   MyStore(),
   Order(),
   EditProfile(),

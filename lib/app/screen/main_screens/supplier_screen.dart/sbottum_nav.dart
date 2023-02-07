@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/category.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/home.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/stores.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dashboard.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/uploads.dart';
@@ -15,10 +14,10 @@ class SupplierHomeScreen extends StatefulWidget {
 
 class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
   int _selectedIndex = 0;
-  final List<Widget> _tabs = const [
-    DashboardScreen(),
-    CategoryScreen(),
-    StoresScreen(),
+  final List<Widget> _tabs = [
+    const DashboardScreen(),
+    const CategoryScreen(),
+    const StoresScreen(),
     UploadsScreen()
   ];
   @override
