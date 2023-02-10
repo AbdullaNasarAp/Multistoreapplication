@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/supplier_control/visitor_store.dart';
 import 'package:siopa/app/screen/main_screens/widget/product_card_model.dart';
@@ -71,30 +73,59 @@ class VisitStore extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
-                              height: 35,
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              decoration: BoxDecoration(
-                                color: xBlue,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: MaterialButton(
-                                  onPressed: () {
-                                    value.followunfollowStore();
-                                  },
-                                  child: value.follow == false
-                                      ? const TextTitle(
-                                          title: "FOLLOW",
-                                          ls: 0,
-                                          color: xWhite,
-                                          fontwght: FontWeight.w400,
-                                          fontsz: 16)
-                                      : const TextTitle(
-                                          title: "UNFOLLOW",
-                                          ls: 0,
-                                          color: xWhite,
-                                          fontwght: FontWeight.w400,
-                                          fontsz: 16)))
+                          data['sid'] == FirebaseAuth.instance.currentUser!.uid
+                              ? Container(
+                                  height: 35,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  decoration: BoxDecoration(
+                                    color: xBlue,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: MaterialButton(
+                                      onPressed: () {},
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: const [
+                                          TextTitle(
+                                              title: "Edit",
+                                              ls: 0,
+                                              color: xWhite,
+                                              fontwght: FontWeight.w400,
+                                              fontsz: 16),
+                                          Icon(
+                                            Icons.edit,
+                                            color: xWhite,
+                                            size: 17,
+                                          )
+                                        ],
+                                      )))
+                              : Container(
+                                  height: 35,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  decoration: BoxDecoration(
+                                    color: xBlue,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: MaterialButton(
+                                      onPressed: () {
+                                        value.followunfollowStore();
+                                      },
+                                      child: value.follow == false
+                                          ? const TextTitle(
+                                              title: "FOLLOW",
+                                              ls: 0,
+                                              color: xWhite,
+                                              fontwght: FontWeight.w400,
+                                              fontsz: 16)
+                                          : const TextTitle(
+                                              title: "UNFOLLOW",
+                                              ls: 0,
+                                              color: xWhite,
+                                              fontwght: FontWeight.w400,
+                                              fontsz: 16)))
                         ],
                       );
                     },
@@ -155,6 +186,15 @@ class VisitStore extends StatelessWidget {
                   ),
                 );
               },
+            ),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.green,
+              onPressed: () {},
+              child: const FaIcon(
+                FontAwesomeIcons.whatsapp,
+                size: 40,
+                color: xWhite,
+              ),
             ),
           );
         }

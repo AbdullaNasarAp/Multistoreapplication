@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/cart.dart';
+import 'package:siopa/app/screen/main_screens/costumer_screen/cart.dart';
 import 'package:siopa/app/screen/main_screens/widget/product_card_model.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/widget/full_screen_preview.dart';
 import 'package:siopa/app/screen/minor_screen.dart/visit_store.dart';
 import 'package:siopa/app/utils/colors.dart';
+import 'package:siopa/app/widget/app_bar.dart';
 import 'package:siopa/app/widget/button_container.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
@@ -327,7 +331,13 @@ class ProductDetailScreen extends StatelessWidget {
                         },
                         icon: const Icon(Icons.store)),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const CartScreen(
+                              back: AppBarbackButton(),
+                            ),
+                          ));
+                        },
                         icon: const Icon(Icons.shopping_cart)),
                   ],
                 ),
@@ -337,7 +347,17 @@ class ProductDetailScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<CartProvider>().addItems(
+                          prodList['prodname'],
+                          prodList['price'],
+                          1,
+                          prodList['instock'],
+                          prodList['prodimage'],
+                          prodList['productId'],
+                          prodList['sid'],
+                        );
+                  },
                   child: const Text(
                     "Add to Cart",
                     style: TextStyle(

@@ -17,9 +17,12 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     CollectionReference customers =
         FirebaseFirestore.instance.collection('customers');
-
+    CollectionReference anounymous =
+        FirebaseFirestore.instance.collection('anounymous');
     return FutureBuilder<DocumentSnapshot>(
-      future: customers.doc(docId).get(),
+      future: FirebaseAuth.instance.currentUser!.isAnonymous
+          ? anounymous.doc(docId).get()
+          : customers.doc(docId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {

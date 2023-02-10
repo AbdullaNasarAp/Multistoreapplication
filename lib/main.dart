@@ -1,10 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:ui';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/costumer_control/c_login_c.dart';
 import 'package:siopa/app/controller/costumer_control/c_signup_c.dart';
+import 'package:siopa/app/controller/costumer_control/cart.dart';
 import 'package:siopa/app/controller/supplier_control/category.dart';
 import 'package:siopa/app/controller/supplier_control/full_screen.dart';
 import 'package:siopa/app/controller/supplier_control/s_login_c.dart';
@@ -12,7 +15,6 @@ import 'package:siopa/app/controller/supplier_control/s_signup_c.dart';
 import 'package:siopa/app/controller/supplier_control/upload.dart';
 import 'package:siopa/app/controller/supplier_control/visitor_store.dart';
 import 'package:siopa/app/screen/main_screens/welcome_screen.dart';
-import 'package:siopa/app/screen/minor_screen.dart/visit_store.dart';
 import 'package:siopa/app/utils/colors.dart';
 
 void main() async {
@@ -32,12 +34,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SupplierSignupProvider()),
         ChangeNotifierProvider(create: (context) => CostumerSignupProvider()),
         ChangeNotifierProvider(create: (context) => CostumerLoginProvider()),
+        ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (context) => UploadProvider()),
         ChangeNotifierProvider(create: (context) => FullScreenProvider()),
         ChangeNotifierProvider(create: (context) => VisitorStore()),
-        ChangeNotifierProvider(
-          create: (context) => VisitorStore(),
-        )
+        ChangeNotifierProvider(create: (context) => VisitorStore()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(

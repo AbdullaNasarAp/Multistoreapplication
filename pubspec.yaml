@@ -45,6 +45,7 @@ dependencies:
   provider: ^6.0.5
   staggered_grid_view_flutter: ^0.0.4
   flutter_swiper_null_safety: ^1.0.2
+  font_awesome_flutter: ^10.3.0
 
 dev_dependencies:
   flutter_test:

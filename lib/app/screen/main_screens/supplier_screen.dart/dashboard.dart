@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/auth/loginscreen.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/balance.dart';
@@ -8,6 +9,7 @@ import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_componen
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/my_product.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/orders.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/statics.dart';
+import 'package:siopa/app/screen/minor_screen.dart/visit_store.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/app_bar.dart';
 
@@ -207,12 +209,12 @@ List<String> dashName = [
   "balance",
   "statics"
 ];
-List<Widget> dashNav = const [
-  MyProduct(),
-  MyStore(),
-  Order(),
-  EditProfile(),
-  ManaageProduct(),
-  Balance(),
-  Statics()
+List<Widget> dashNav = [
+  const MyProduct(),
+  VisitStore(supId: FirebaseAuth.instance.currentUser!.uid),
+  const Order(),
+  const EditProfile(),
+  const ManaageProduct(),
+  const Balance(),
+  const Statics()
 ];

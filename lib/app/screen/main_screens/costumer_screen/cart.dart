@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/cart.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/bottum_nav.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/app_bar.dart';
+import 'package:siopa/app/widget/button_container.dart';
 
 class CartScreen extends StatelessWidget {
   final Widget? back;
@@ -27,42 +30,57 @@ class CartScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Container(
-        color: xWhite,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Your Cart is Empyt",
-                style: TextStyle(
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              MaterialButton(
-                color: xBlue,
-                minWidth: MediaQuery.of(context).size.width * 0.6,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const CostumerHomeScreen(),
-                  ));
-                },
-                child: const Text(
-                  "Continue Shopping",
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: "Poppins", color: xWhite),
-                ),
-              )
-            ],
-          ),
-        ),
+      body: Consumer<CartProvider>(
+        builder: (context, cart, child) {
+          return ListView.builder(
+            itemCount: cart.count,
+            itemBuilder: (context, index) {
+              return TextTitle(
+                  title: cart.getItems[index].name,
+                  ls: 0,
+                  color: xBlack87,
+                  fontwght: FontWeight.normal,
+                  fontsz: 16);
+            },
+          );
+        },
       ),
+      // Container(
+      //   color: xWhite,
+      //   child: Center(
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         const Text(
+      //           "Your Cart is Empyt",
+      //           style: TextStyle(
+      //             fontSize: 24,
+      //           ),
+      //         ),
+      //         const SizedBox(
+      //           height: 50,
+      //         ),
+      //         MaterialButton(
+      //           color: xBlue,
+      //           minWidth: MediaQuery.of(context).size.width * 0.6,
+      //           shape: RoundedRectangleBorder(
+      //             borderRadius: BorderRadius.circular(25),
+      //           ),
+      //           onPressed: () {
+      //             Navigator.of(context).pushReplacement(MaterialPageRoute(
+      //               builder: (context) => const CostumerHomeScreen(),
+      //             ));
+      //           },
+      //           child: const Text(
+      //             "Continue Shopping",
+      //             style: TextStyle(
+      //                 fontSize: 18, fontFamily: "Poppins", color: xWhite),
+      //           ),
+      //         )
+      //       ],
+      //     ),
+      //   ),
+      // ),
       bottomSheet: Container(
         color: xWhite,
         child: Padding(

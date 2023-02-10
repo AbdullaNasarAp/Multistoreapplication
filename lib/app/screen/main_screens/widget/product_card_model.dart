@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/product_detail.dart';
 import 'package:siopa/app/utils/colors.dart';
@@ -54,12 +55,19 @@ class ProductCardModel extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("₹ ${products['price'].toStringAsFixed(2)}"),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border_outlined,
-                          color: xBlue,
-                        ))
+                    products['sid'] == FirebaseAuth.instance.currentUser!.uid
+                        ? IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.edit,
+                              color: xBlue,
+                            ))
+                        : IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.favorite_border_outlined,
+                              color: xBlue,
+                            ))
                   ],
                 )
               ],

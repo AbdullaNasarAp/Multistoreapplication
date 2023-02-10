@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/widgets/bags_gallery.dart';
+import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/widgets/beauty_gallery.dart';
+import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/widgets/electronics_gallery.dart';
+import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/widgets/home_garden_gallery.dart';
+import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/widgets/women_gallery.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/fakesearch.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../supplier_screen.dart/dash_component/myprod/widgets/accessories_gallery.dart';
+import '../supplier_screen.dart/dash_component/myprod/widgets/kids_gallery.dart';
+import '../supplier_screen.dart/dash_component/myprod/widgets/men_gallery.dart';
+import '../supplier_screen.dart/dash_component/myprod/widgets/shoe_gallery.dart';
+
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -39,17 +44,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         body: Container(
-          color: xBlack87,
+          color: xWhite,
           child: const TabBarView(children: [
-            Center(child: Text("Men Screen")),
-            Center(child: Text("Women Screen")),
-            Center(child: Text("Shoe Screen")),
-            Center(child: Text("Bags Screen")),
-            Center(child: Text("Electronics Screen")),
-            Center(child: Text("Accessories Screen")),
-            Center(child: Text("Home & Garden Screen")),
-            Center(child: Text("Kids Screen")),
-            Center(child: Text("Beauty Screen")),
+            MenGallery(),
+            WomenGallery(),
+            ShoesGallery(),
+            BagsGallery(),
+            ElectronicsGallery(),
+            AccessoriesGallery(),
+            HomeandGardenGallery(),
+            KidsGallery(),
+            BeautyGallery(),
           ]),
         ),
       ),
