@@ -116,6 +116,7 @@ class CostumerLoginScreen extends StatelessWidget {
                                 height: 20,
                               ),
                               TextFormField(
+                                style: TextStyle(color: xWhite),
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter you Email";
@@ -163,6 +164,8 @@ class CostumerLoginScreen extends StatelessWidget {
                                 onChanged: (value) {
                                   cLp.password = value;
                                 },
+                                style: TextStyle(color: xWhite),
+
                                 // controller: _passwordController,
                                 obscureText: cLp.passwordVisible,
                                 decoration: InputDecoration(
@@ -250,7 +253,7 @@ class CostumerLoginScreen extends StatelessWidget {
                     text: "Sign up",
                     ontap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const CostumerSignUpScreen(),
+                        builder: (context) => CostumerSignUpScreen(),
                       ));
                     },
                   ),

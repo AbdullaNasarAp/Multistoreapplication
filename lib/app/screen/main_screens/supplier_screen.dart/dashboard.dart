@@ -17,7 +17,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: xBlack87,
+        backgroundColor: xWhite,
         appBar: AppBar(
           title: const AppBarTitle(
             title: "Dashboard",
@@ -35,7 +35,7 @@ class DashboardScreen extends StatelessWidget {
           ],
         ),
         body: Container(
-            color: xBlack87,
+            color: xWhite,
             child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.separated(
@@ -56,7 +56,7 @@ class DashboardScreen extends StatelessWidget {
                         height: 90,
                         margin: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: xBlack87,
+                          color: xWhite,
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
@@ -91,7 +91,7 @@ class DashboardScreen extends StatelessWidget {
                                   width: 180,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: xBlack.withOpacity(0.5),
+                                    color: xBlue.withOpacity(0.2),
                                   ),
                                 ),
                               ),
@@ -111,7 +111,7 @@ class DashboardScreen extends StatelessWidget {
                                             dashName[index].toUpperCase(),
                                             maxLines: 2,
                                             style: const TextStyle(
-                                              color: Colors.white,
+                                              color: xBlack87,
                                               fontSize: 20,
                                             ),
                                             textAlign: TextAlign.start,
@@ -159,6 +159,7 @@ class DashboardScreen extends StatelessWidget {
         ),
         content: const Text(
           "Are you sure to log out",
+          style: TextStyle(color: xWhite),
         ),
         actions: [
           OutlinedButton(

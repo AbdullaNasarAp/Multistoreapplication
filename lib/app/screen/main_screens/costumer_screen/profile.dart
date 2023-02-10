@@ -9,22 +9,17 @@ import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/wishlis
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/app_bar.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.docId});
   final String docId;
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     CollectionReference customers =
         FirebaseFirestore.instance.collection('customers');
 
     return FutureBuilder<DocumentSnapshot>(
-      future: customers.doc(widget.docId).get(),
+      future: customers.doc(docId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -39,20 +34,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           return Scaffold(
-            backgroundColor: xBlack87,
+            backgroundColor: xWhite,
             body: Stack(
               children: [
                 Container(
-                  height: 200,
-                  decoration: const BoxDecoration(color: xBlack87),
+                  height: 244,
+                  decoration: const BoxDecoration(color: xBlue),
                 ),
                 CustomScrollView(
                   slivers: [
                     SliverAppBar(
-                      centerTitle: true,
                       pinned: true,
                       elevation: 0,
-                      backgroundColor: xBlack87,
+                      backgroundColor: xBlue,
                       expandedHeight: 140,
                       flexibleSpace: LayoutBuilder(
                         builder: (context, constraints) {
@@ -71,24 +65,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                             background: Container(
-                              decoration: const BoxDecoration(color: xBlack87),
+                              decoration: const BoxDecoration(color: xBlue),
                               child: Padding(
                                 padding:
                                     const EdgeInsets.only(top: 25.0, left: 30),
                                 child: Row(
                                   children: [
-                                    data['profileimage'] == ''
-                                        ? const CircleAvatar(
-                                            radius: 45,
-                                            backgroundImage: AssetImage(
-                                                "images/inapp/guest.png"),
-                                          )
-                                        : CircleAvatar(
-                                            radius: 45,
-                                            backgroundImage: NetworkImage(
-                                              data['profileimage'],
-                                            ),
-                                          ),
+                                    const CircleAvatar(
+                                      radius: 45,
+                                      backgroundImage:
+                                          AssetImage("images/inapp/guest.png"),
+                                    ),
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(left: 25.0),
@@ -98,6 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             : data['name'].toUpperCase(),
                                         style: const TextStyle(
                                             fontSize: 24,
+                                            color: xWhite,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     )
@@ -123,9 +111,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Container(
-                                  height: 74,
+                                  height: 60,
                                   width:
-                                      MediaQuery.of(context).size.height * .15,
+                                      MediaQuery.of(context).size.height * .13,
                                   decoration: const BoxDecoration(
                                     color: xBlack87,
                                     borderRadius: BorderRadius.only(
@@ -150,16 +138,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         "Cart",
                                         style: TextStyle(
                                             color: xWhite,
-                                            fontSize: 22,
+                                            fontSize: 17,
                                             fontFamily: "Poppins"),
                                       )),
                                     ),
                                   ),
                                 ),
                                 Container(
-                                  height: 74,
+                                  height: 60,
                                   width:
-                                      MediaQuery.of(context).size.height * .15,
+                                      MediaQuery.of(context).size.height * .13,
                                   decoration: const BoxDecoration(
                                     color: xBlack87,
                                   ),
@@ -181,16 +169,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         "Order",
                                         style: TextStyle(
                                             color: xWhite,
-                                            fontSize: 22,
+                                            fontSize: 17,
                                             fontFamily: "Poppins"),
                                       )),
                                     ),
                                   ),
                                 ),
                                 Container(
-                                  height: 74,
+                                  height: 60,
                                   width:
-                                      MediaQuery.of(context).size.height * .15,
+                                      MediaQuery.of(context).size.height * .13,
                                   decoration: const BoxDecoration(
                                     color: xBlack87,
                                     borderRadius: BorderRadius.only(
@@ -214,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         "Wishlist",
                                         style: TextStyle(
                                             color: xWhite,
-                                            fontSize: 22,
+                                            fontSize: 17,
                                             fontFamily: "Poppins"),
                                       )),
                                     ),
@@ -224,11 +212,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           Container(
-                            color: xBlack87,
+                            color: xWhite,
                             child: Column(
                               children: [
                                 const SizedBox(
-                                  height: 150,
+                                  height: 130,
                                   child: Image(
                                     image: AssetImage(
                                       "images/inapp/sample.webp",
@@ -313,6 +301,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         content: const Text(
           "Are you sure to log out",
+          style: TextStyle(color: xWhite),
         ),
         actions: [
           OutlinedButton(
@@ -387,7 +376,7 @@ class InfoCard extends StatelessWidget {
       child: Container(
         height: 260,
         decoration: BoxDecoration(
-            color: xBlack87,
+            color: xWhite,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: xBlue, width: 2)),
         child: Column(
@@ -446,15 +435,15 @@ class ProfileTile extends StatelessWidget {
       onTap: function,
       title: Text(
         title1,
-        style: const TextStyle(color: xWhite),
+        style: const TextStyle(color: xBlack87),
       ),
       subtitle: Text(
         sub1 ?? '',
-        style: const TextStyle(color: xWhite),
+        style: const TextStyle(color: xBlack87),
       ),
       leading: Icon(
         icondata1,
-        color: xWhite,
+        color: xBlack87,
       ),
     );
   }
@@ -480,10 +469,16 @@ class ProfileHeader extends StatelessWidget {
             thickness: 1,
           ),
         ),
+        const SizedBox(
+          width: 10,
+        ),
         Text(
           title,
           style: const TextStyle(
               color: Colors.grey, fontSize: 24, fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(
+          width: 10,
         ),
         const SizedBox(
           height: 40,

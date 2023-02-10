@@ -66,6 +66,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                             const TextTitle(
                                 title: "Supplier Sign Up",
                                 ls: 0,
+                                color: xWhite,
                                 fontwght: FontWeight.bold,
                                 fontsz: 20),
                             const SizedBox(
@@ -90,6 +91,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                                           ),
                                           TextTitle(
                                               title: "Add your Logo",
+                                              color: xWhite,
                                               ls: 0,
                                               fontwght: FontWeight.normal,
                                               fontsz: 10)
@@ -124,6 +126,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                                         children: const [
                                           Icon(Icons.camera_alt),
                                           TextTitle(
+                                              color: xWhite,
                                               title: "Camera",
                                               ls: 0,
                                               fontwght: FontWeight.normal,
@@ -154,6 +157,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                                         children: const [
                                           Icon(Icons.album),
                                           TextTitle(
+                                              color: xWhite,
                                               title: "Gallery",
                                               ls: 0,
                                               fontwght: FontWeight.normal,
@@ -179,6 +183,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                           onChanged: (value) {
                             sSp.storeName = value;
                           },
+                          style: TextStyle(color: xWhite),
                           decoration: InputDecoration(
                               labelText: 'Store Name',
                               border: OutlineInputBorder(
@@ -217,6 +222,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                           onChanged: (value) {
                             sSp.email = value;
                           },
+                          style: TextStyle(color: xWhite),
                           // controller: _emailController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -251,7 +257,9 @@ class SupplierSignUpScreen extends StatelessWidget {
                           onChanged: (value) {
                             sSp.password = value;
                           },
-                          // controller: _passwordController,
+                          style: TextStyle(color: xWhite),
+                          // c
+                          //ontroller: _passwordController,
                           obscureText: sSp.passwordVisible,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -293,6 +301,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                             }
                             return null;
                           },
+                          style: TextStyle(color: xWhite),
                           onChanged: (value) {
                             sSp.password = value;
                           },

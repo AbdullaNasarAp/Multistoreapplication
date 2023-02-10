@@ -3,24 +3,19 @@ import 'package:siopa/app/screen/main_screens/costumer_screen/bottum_nav.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/app_bar.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   final Widget? back;
   const CartScreen({super.key, this.back});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: xBlack87,
+      backgroundColor: xWhite,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: xBlack87,
+        backgroundColor: xBlue,
         title: const AppBarTitle(title: "Cart"),
-        leading: widget.back,
+        leading: back,
         iconTheme: const IconThemeData(color: xWhite),
         actions: [
           IconButton(
@@ -33,7 +28,7 @@ class _CartScreenState extends State<CartScreen> {
         ],
       ),
       body: Container(
-        color: xBlack87,
+        color: xWhite,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +64,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
       ),
       bottomSheet: Container(
-        color: xBlack87,
+        color: xWhite,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -108,7 +103,7 @@ class _CartScreenState extends State<CartScreen> {
                     color: xWhite,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

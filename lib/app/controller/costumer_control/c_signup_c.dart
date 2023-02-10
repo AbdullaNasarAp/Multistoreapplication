@@ -12,6 +12,7 @@ class CostumerSignupProvider with ChangeNotifier {
   late String uid;
   late String uids;
   bool processing = false;
+  bool processings = false;
 
   CollectionReference customer =
       FirebaseFirestore.instance.collection('customers');
@@ -54,6 +55,21 @@ class CostumerSignupProvider with ChangeNotifier {
       notifyListeners();
       MyMessengerHelper.showSnackBar(scaffoldKey, "Pls fill all fields");
     }
+    notifyListeners();
+  }
+
+  void anonymousAuth() {
+    FirebaseAuth.instance.signInAnonymously().whenComplete(() async {
+      uids = FirebaseAuth.instance.currentUser!.uid;
+      await customer.doc(uids).set({
+        'name': '',
+        'email': '',
+        'profileimage': '',
+        'phone': '',
+        'address': '',
+        'cid': uids,
+      });
+    });
     notifyListeners();
   }
 

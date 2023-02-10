@@ -10,15 +10,11 @@ import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/utils/regex.dart';
 import 'package:siopa/app/widget/button_container.dart';
 
-class CostumerSignUpScreen extends StatefulWidget {
-  const CostumerSignUpScreen({super.key});
+class CostumerSignUpScreen extends StatelessWidget {
+  CostumerSignUpScreen({super.key});
 
-  @override
-  State<CostumerSignUpScreen> createState() => _CostumerSignUpScreenState();
-}
-
-class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final GlobalKey<ScaffoldMessengerState> scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
 
@@ -124,6 +120,7 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                           height: 30,
                         ),
                         TextFormField(
+                          style: TextStyle(color: xWhite),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter you Fullname";
@@ -159,6 +156,7 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                           height: 20,
                         ),
                         TextFormField(
+                          style: TextStyle(color: xWhite),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter you Email";
@@ -196,6 +194,7 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                           height: 20,
                         ),
                         TextFormField(
+                          style: TextStyle(color: xWhite),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter you Password";
@@ -241,6 +240,7 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                           height: 20,
                         ),
                         TextFormField(
+                          style: TextStyle(color: xWhite),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter you Password";
@@ -383,26 +383,12 @@ class _CostumerSignUpScreenState extends State<CostumerSignUpScreen> {
                                 ],
                               ),
                             ),
-                            cSp.processing == true
+                            cSp.processings == true
                                 ? const CircularProgressIndicator()
                                 : InkWell(
                                     onTap: () async {
-                                      cSp.processing = true;
-
-                                      FirebaseAuth.instance
-                                          .signInAnonymously()
-                                          .whenComplete(() async {
-                                        cSp.uids = FirebaseAuth
-                                            .instance.currentUser!.uid;
-                                        await cSp.customer.doc(cSp.uids).set({
-                                          'name': '',
-                                          'email': '',
-                                          'profileimage': '',
-                                          'phone': '',
-                                          'address': '',
-                                          'cid': cSp.uids,
-                                        });
-                                      });
+                                      cSp.processings = true;
+                                      cSp.anonymousAuth();
 
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(

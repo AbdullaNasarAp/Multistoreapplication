@@ -44,12 +44,12 @@ class UploadsScreen extends StatelessWidget {
     return ScaffoldMessenger(
       key: scaffoldKey,
       child: Scaffold(
-        backgroundColor: xBlack87,
+        backgroundColor: xWhite,
         appBar: AppBar(
           title: const AppBarTitle(title: "Uploads"),
         ),
         body: Container(
-          color: xBlack87,
+          color: xWhite,
           child: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             physics: const ScrollPhysics(),
@@ -69,7 +69,7 @@ class UploadsScreen extends StatelessWidget {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: xBlack,
+                                color: xBlue,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               height: hmediaSize * 0.25,
@@ -95,7 +95,7 @@ class UploadsScreen extends StatelessWidget {
                                   menuMaxHeight: 150,
                                   value: uP.mainCategoryValue,
                                   focusColor: xBlue,
-                                  dropdownColor: xBlack,
+                                  dropdownColor: xWhite,
                                   items: maincateg
                                       .map<DropdownMenuItem<String>>((value) {
                                     return DropdownMenuItem(
@@ -123,7 +123,7 @@ class UploadsScreen extends StatelessWidget {
                                   disabledHint: const Text("Select Category"),
                                   value: uP.subCategoryValue,
                                   focusColor: xBlue,
-                                  dropdownColor: xBlack,
+                                  dropdownColor: xWhite,
                                   items: uP.subCategoryList
                                       .map<DropdownMenuItem<String>>((value) {
                                     return DropdownMenuItem(
@@ -152,6 +152,7 @@ class UploadsScreen extends StatelessWidget {
                             SizedBox(
                               width: wmediaSize * 0.45,
                               child: TextFormField(
+                                  style: const TextStyle(color: xBlack87),
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return "Enter the Price";
@@ -169,6 +170,7 @@ class UploadsScreen extends StatelessWidget {
                                       const TextInputType.numberWithOptions(
                                           decimal: true),
                                   decoration: inputDecoration.copyWith(
+                                      labelStyle: TextStyle(color: xBlack87),
                                       labelText: 'Price',
                                       hintText: "ProductPrice")),
                             ),
@@ -186,6 +188,7 @@ class UploadsScreen extends StatelessWidget {
                                     child: const TextTitle(
                                         title: "Select Image",
                                         ls: 0,
+                                        color: xWhite,
                                         fontwght: FontWeight.normal,
                                         fontsz: 16),
                                   )
@@ -212,6 +215,7 @@ class UploadsScreen extends StatelessWidget {
                             SizedBox(
                               width: wmediaSize * 0.45,
                               child: TextFormField(
+                                style: const TextStyle(color: xBlack87),
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter the Discount";
@@ -223,6 +227,7 @@ class UploadsScreen extends StatelessWidget {
                                 keyboardType: TextInputType.number,
                                 decoration: inputDecoration.copyWith(
                                     labelText: 'Discount',
+                                    labelStyle: TextStyle(color: xBlack87),
                                     hintText: "Product Discount"),
                               ),
                             ),
@@ -230,6 +235,7 @@ class UploadsScreen extends StatelessWidget {
                             SizedBox(
                               width: wmediaSize * 0.45,
                               child: TextFormField(
+                                style: const TextStyle(color: xBlack87),
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter the Quantity";
@@ -246,6 +252,7 @@ class UploadsScreen extends StatelessWidget {
                                 keyboardType: TextInputType.number,
                                 decoration: inputDecoration.copyWith(
                                     labelText: 'Quantity',
+                                    labelStyle: TextStyle(color: xBlack87),
                                     hintText: "Enter the Quantity"),
                               ),
                             ),
@@ -255,6 +262,7 @@ class UploadsScreen extends StatelessWidget {
                         SizedBox(
                           width: wmediaSize * 100,
                           child: TextFormField(
+                            style: const TextStyle(color: xBlack87),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter the Product Name";
@@ -272,6 +280,7 @@ class UploadsScreen extends StatelessWidget {
                             decoration: inputDecoration.copyWith(
                                 alignLabelWithHint: true,
                                 labelText: 'Product Name',
+                                labelStyle: TextStyle(color: xBlack87),
                                 hintText: "Enter Product Name"),
                           ),
                         ),
@@ -279,6 +288,7 @@ class UploadsScreen extends StatelessWidget {
                         SizedBox(
                           width: wmediaSize * 100,
                           child: TextFormField(
+                            style: const TextStyle(color: xBlack87),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter the Product Description";
@@ -296,6 +306,7 @@ class UploadsScreen extends StatelessWidget {
                             decoration: inputDecoration.copyWith(
                                 alignLabelWithHint: true,
                                 labelText: 'Product Description',
+                                labelStyle: TextStyle(color: xBlack87),
                                 hintText: "Enter Product Description"),
                           ),
                         ),
@@ -315,6 +326,7 @@ class UploadsScreen extends StatelessWidget {
                                         },
                                   child: const TextTitle(
                                       title: "Upload",
+                                      color: xWhite,
                                       ls: 0,
                                       fontwght: FontWeight.normal,
                                       fontsz: 16),

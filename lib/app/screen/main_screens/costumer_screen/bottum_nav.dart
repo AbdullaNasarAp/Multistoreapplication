@@ -18,7 +18,7 @@ class _CostumerHomeScreenState extends State<CostumerHomeScreen> {
   int _selectedIndex = 0;
   final List<Widget> _tabs = [
     const HomeScreen(),
-    const CategoryScreen(),
+    CategoryScreen(),
     const StoresScreen(),
     const CartScreen(),
     ProfileScreen(docId: FirebaseAuth.instance.currentUser!.uid),

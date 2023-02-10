@@ -24,11 +24,11 @@ class _MyProductState extends State<MyProduct> {
     return DefaultTabController(
       length: 9,
       child: Scaffold(
-        backgroundColor: xBlack87,
+        backgroundColor: xWhite,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
-          backgroundColor: xBlack87,
+          backgroundColor: xBlue,
           title: const FakeSearch(),
           bottom: TabBar(
             isScrollable: true,
@@ -48,7 +48,7 @@ class _MyProductState extends State<MyProduct> {
           ),
         ),
         body: Container(
-          color: xBlack87,
+          color: xWhite,
           child: const TabBarView(children: [
             MenGallery(),
             WomenGallery(),
@@ -77,7 +77,7 @@ class HomeTab extends StatelessWidget {
     return Tab(
       child: Text(
         title,
-        style: TextStyle(color: Colors.grey.shade600),
+        style: TextStyle(color: xWhite),
       ),
     );
   }

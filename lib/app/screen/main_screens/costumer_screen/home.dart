@@ -15,11 +15,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return DefaultTabController(
       length: 9,
       child: Scaffold(
-        backgroundColor: xBlack87,
+        backgroundColor: xWhite,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
-          backgroundColor: xBlack87,
+          backgroundColor: xBlue,
           title: const FakeSearch(),
           bottom: TabBar(
             isScrollable: true,
@@ -68,7 +68,7 @@ class HomeTab extends StatelessWidget {
     return Tab(
       child: Text(
         title,
-        style: TextStyle(color: Colors.grey.shade600),
+        style: const TextStyle(color: xWhite),
       ),
     );
   }

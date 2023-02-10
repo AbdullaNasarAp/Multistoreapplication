@@ -86,6 +86,8 @@ class SubCategModel extends StatelessWidget {
             child: Image(
               fit: BoxFit.contain,
               image: AssetImage(assetName),
+              height: 100,
+              width: 100,
             ),
           ),
           Text(

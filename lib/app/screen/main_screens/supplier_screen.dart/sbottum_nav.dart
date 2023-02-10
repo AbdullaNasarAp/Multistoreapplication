@@ -16,7 +16,7 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
   int _selectedIndex = 0;
   final List<Widget> _tabs = [
     const DashboardScreen(),
-    const CategoryScreen(),
+    CategoryScreen(),
     const StoresScreen(),
     UploadsScreen()
   ];
@@ -31,8 +31,8 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
         unselectedLabelStyle:
             const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: xGreen,
-        unselectedItemColor: xBlue,
+        selectedItemColor: xBlack87,
+        unselectedItemColor: xWhite,
         currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(

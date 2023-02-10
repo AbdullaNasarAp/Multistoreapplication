@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/costumer_control/c_login_c.dart';
 import 'package:siopa/app/controller/costumer_control/c_signup_c.dart';
+import 'package:siopa/app/controller/supplier_control/category.dart';
+import 'package:siopa/app/controller/supplier_control/full_screen.dart';
 import 'package:siopa/app/controller/supplier_control/s_login_c.dart';
 import 'package:siopa/app/controller/supplier_control/s_signup_c.dart';
 import 'package:siopa/app/controller/supplier_control/upload.dart';
+import 'package:siopa/app/controller/supplier_control/visitor_store.dart';
 import 'package:siopa/app/screen/main_screens/welcome_screen.dart';
+import 'package:siopa/app/screen/minor_screen.dart/visit_store.dart';
 import 'package:siopa/app/utils/colors.dart';
 
 void main() async {
@@ -29,13 +33,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CostumerSignupProvider()),
         ChangeNotifierProvider(create: (context) => CostumerLoginProvider()),
         ChangeNotifierProvider(create: (context) => UploadProvider()),
+        ChangeNotifierProvider(create: (context) => FullScreenProvider()),
+        ChangeNotifierProvider(create: (context) => VisitorStore()),
+        ChangeNotifierProvider(
+          create: (context) => VisitorStore(),
+        )
       ],
       child: MaterialApp(
         theme: ThemeData(
           useMaterial3: true,
           appBarTheme: const AppBarTheme(
             elevation: 0,
-            backgroundColor: xBlack87,
+            backgroundColor: xBlue,
             iconTheme: IconThemeData(color: xWhite),
             titleTextStyle: TextStyle(fontFamily: "Poppins", color: xWhite),
             actionsIconTheme: IconThemeData(color: xWhite),
@@ -43,17 +52,18 @@ class MyApp extends StatelessWidget {
           tabBarTheme:
               const TabBarTheme(labelStyle: TextStyle(fontFamily: "Poppins")),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: xBlack87,
+            backgroundColor: xBlue,
           ),
           iconTheme: const IconThemeData(color: xWhite),
+          scaffoldBackgroundColor: xWhite,
           textTheme: const TextTheme(
-            headline1: TextStyle(fontFamily: "Poppins", color: xWhite),
-            headline2: TextStyle(fontFamily: "Poppins", color: xWhite),
-            headline3: TextStyle(fontFamily: "Poppins", color: xWhite),
-            bodyText1: TextStyle(fontFamily: "Poppins", color: xWhite),
-            bodyText2: TextStyle(fontFamily: "Poppins", color: xWhite),
-            subtitle1: TextStyle(fontFamily: "Poppins", color: xWhite),
-            subtitle2: TextStyle(fontFamily: "Poppins", color: xWhite),
+            headline1: TextStyle(fontFamily: "Poppins", color: xBlack87),
+            headline2: TextStyle(fontFamily: "Poppins", color: xBlack87),
+            headline3: TextStyle(fontFamily: "Poppins", color: xBlack87),
+            bodyText1: TextStyle(fontFamily: "Poppins", color: xBlack87),
+            bodyText2: TextStyle(fontFamily: "Poppins", color: xBlack87),
+            subtitle1: TextStyle(fontFamily: "Poppins", color: xBlack87),
+            subtitle2: TextStyle(fontFamily: "Poppins", color: xBlack87),
           ),
         ),
         debugShowCheckedModeBanner: false,

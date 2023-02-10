@@ -25,6 +25,8 @@ class CostumerLoginProvider with ChangeNotifier {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const CostumerHomeScreen(),
         ));
+        processing = false;
+        notifyListeners();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           processing = false;

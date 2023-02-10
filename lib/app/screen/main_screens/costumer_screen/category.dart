@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/supplier_control/category.dart';
 import 'package:siopa/app/screen/categories/accessories.dart';
 import 'package:siopa/app/screen/categories/bags.dart';
 import 'package:siopa/app/screen/categories/beauty.dart';
@@ -11,46 +13,21 @@ import 'package:siopa/app/screen/categories/women.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/fakesearch.dart';
 
-List<ItemsData> items = [
-  ItemsData(label: "Men"),
-  ItemsData(label: "Women"),
-  ItemsData(label: "Shoes"),
-  ItemsData(label: "Bags"),
-  ItemsData(label: "Electronics"),
-  ItemsData(label: "Accessories"),
-  ItemsData(label: "Home & Garden"),
-  ItemsData(label: "Kids"),
-  ItemsData(label: "Beauty"),
-];
-
-class CategoryScreen extends StatefulWidget {
+class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
 
   @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
-}
-
-class _CategoryScreenState extends State<CategoryScreen> {
-  final PageController _pageController = PageController();
-  @override
-  void initState() {
-    for (var element in items) {
-      element.isSelected = false;
-    }
-    setState(() {
-      items[0].isSelected = true;
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<CategoryProvider>(context, listen: false).initValueGetting();
+    });
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: xBlack87,
+      backgroundColor: xWhite,
       appBar: AppBar(
+        toolbarHeight: 70,
         automaticallyImplyLeading: false,
-        backgroundColor: xBlack87,
+        backgroundColor: xBlue,
         elevation: 0,
         title: const FakeSearch(),
       ),
@@ -64,60 +41,65 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Widget sideNav(Size size) {
-    return Container(
-      height: size.height * 0.8,
-      color: xBlack87,
-      width: size.width * 0.3,
-      child: ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              _pageController.animateToPage(index,
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.decelerate);
+    return Consumer<CategoryProvider>(
+      builder: (context, value, child) {
+        return Container(
+          height: size.height * 0.8,
+          color: Colors.black12,
+          width: size.width * 0.3,
+          child: ListView.builder(
+            itemCount: value.items.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  value.pageController.animateToPage(index,
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.decelerate);
+                },
+                child: Container(
+                  height: 100,
+                  color: value.items[index].isSelected == true
+                      ? xBlue
+                      : Colors.black12,
+                  child: Center(
+                    child: Text(value.items[index].label),
+                  ),
+                ),
+              );
             },
-            child: Container(
-              height: 100,
-              color: items[index].isSelected == true ? xBlue : xBlack,
-              child: Center(
-                child: Text(items[index].label),
-              ),
-            ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
   Widget categoryView(Size size) {
-    return Container(
-      height: size.height * 0.8,
-      color: xBlack87,
-      width: size.width * 0.7,
-      child: PageView(
-        controller: _pageController,
-        onPageChanged: (value) {
-          for (var element in items) {
-            element.isSelected = false;
-          }
-          setState(() {
-            items[value].isSelected = true;
-          });
-        },
-        scrollDirection: Axis.vertical,
-        children: const [
-          MenCategory(),
-          WomenCategory(),
-          ShoesCategory(),
-          BagCategory(),
-          ElectronicsCategory(),
-          AccessoriesCategory(),
-          HomeAndGardenCategory(),
-          KidsCategory(),
-          BeautyCategory(),
-        ],
-      ),
+    return Consumer<CategoryProvider>(
+      builder: (context, values, child) {
+        return Container(
+          height: size.height * 0.8,
+          color: xWhite,
+          width: size.width * 0.7,
+          child: PageView(
+            controller: values.pageController,
+            onPageChanged: (value) {
+              values.changeItem(value);
+            },
+            scrollDirection: Axis.vertical,
+            children: const [
+              MenCategory(),
+              WomenCategory(),
+              ShoesCategory(),
+              BagCategory(),
+              ElectronicsCategory(),
+              AccessoriesCategory(),
+              HomeAndGardenCategory(),
+              KidsCategory(),
+              BeautyCategory(),
+            ],
+          ),
+        );
+      },
     );
   }
 }

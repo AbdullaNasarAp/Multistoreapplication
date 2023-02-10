@@ -41,6 +41,7 @@ class ButtonContainer extends StatelessWidget {
         children: [
           TextTitle(
             title: title,
+            color: xWhite,
             ls: ls,
             fontwght: fontwght,
             fontsz: fontsz,
@@ -67,21 +68,26 @@ class TextTitle extends StatelessWidget {
       required this.fontwght,
       required this.fontsz,
       this.overflow,
-      this.mL});
+      this.mL,
+      this.textalign,
+      this.color});
   final String title;
   final double ls;
   final FontWeight fontwght;
   final double fontsz;
   final TextOverflow? overflow;
   final int? mL;
+  final TextAlign? textalign;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
       maxLines: mL,
+      textAlign: textalign,
       style: TextStyle(
-        color: xWhite,
+        color: color,
         letterSpacing: ls,
         fontWeight: fontwght,
         fontSize: fontsz,
