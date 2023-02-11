@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/product_detail.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/button_container.dart';
+import '../../../controller/costumer_control/wishlist.dart';
+import 'package:collection/collection.dart';
 
 class ProductCardModel extends StatelessWidget {
   const ProductCardModel({
@@ -63,11 +66,44 @@ class ProductCardModel extends StatelessWidget {
                               color: xBlue,
                             ))
                         : IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite_border_outlined,
-                              color: xBlue,
-                            ))
+                            onPressed: () {
+                              context
+                                          .read<WishListProvider>()
+                                          .getWishItems
+                                          .firstWhereOrNull((prod) =>
+                                              prod.documentId ==
+                                              products['productId']) !=
+                                      null
+                                  ? context
+                                      .read<WishListProvider>()
+                                      .removeThis(products['productId'])
+                                  : context
+                                      .read<WishListProvider>()
+                                      .addWishItems(
+                                        products['prodname'],
+                                        products['price'],
+                                        1,
+                                        products['instock'],
+                                        products['prodimage'],
+                                        products['productId'],
+                                        products['sid'],
+                                      );
+                            },
+                            icon: context
+                                        .watch<WishListProvider>()
+                                        .getWishItems
+                                        .firstWhereOrNull((prod) =>
+                                            prod.documentId ==
+                                            products['productId']) !=
+                                    null
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_outline_rounded,
+                                    color: Colors.red,
+                                  )),
                   ],
                 )
               ],

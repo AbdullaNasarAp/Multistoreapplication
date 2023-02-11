@@ -46,6 +46,7 @@ dependencies:
   staggered_grid_view_flutter: ^0.0.4
   flutter_swiper_null_safety: ^1.0.2
   font_awesome_flutter: ^10.3.0
+  badges: ^3.0.2
 
 dev_dependencies:
   flutter_test:

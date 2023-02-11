@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:siopa/app/screen/main_screens/costumer_screen/auth/widgets.dart';
 
 class CartProvider with ChangeNotifier {
   final List<Product> _list = [];
@@ -10,7 +11,16 @@ class CartProvider with ChangeNotifier {
     return _list.length;
   }
 
-  void addItems(
+  double get totalPrice {
+    var total = 0.0;
+
+    for (var item in _list) {
+      total += item.price * item.qty;
+    }
+    return total;
+  }
+
+  Future<void> addItems(
     String name,
     double price,
     int qty,
@@ -18,7 +28,7 @@ class CartProvider with ChangeNotifier {
     List imageUrl,
     String documentId,
     String suppId,
-  ) {
+  ) async {
     final product = Product(
       name: name,
       price: price,
@@ -29,6 +39,26 @@ class CartProvider with ChangeNotifier {
       suppId: suppId,
     );
     _list.add(product);
+    notifyListeners();
+  }
+
+  void increment(Product product) {
+    product.quantiyIncrease();
+    notifyListeners();
+  }
+
+  void reduceByOne(Product product) {
+    product.quantiyDecrease();
+    notifyListeners();
+  }
+
+  void removeItem(Product product) {
+    _list.remove(product);
+    notifyListeners();
+  }
+
+  void clearItems() {
+    _list.clear();
     notifyListeners();
   }
 }
@@ -51,4 +81,11 @@ class Product {
     required this.imageUrl,
     required this.suppId,
   });
+  void quantiyIncrease() {
+    qty++;
+  }
+
+  void quantiyDecrease() {
+    qty--;
+  }
 }

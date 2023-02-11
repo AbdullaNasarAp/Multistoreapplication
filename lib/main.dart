@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/costumer_control/c_login_c.dart';
 import 'package:siopa/app/controller/costumer_control/c_signup_c.dart';
 import 'package:siopa/app/controller/costumer_control/cart.dart';
+import 'package:siopa/app/controller/costumer_control/wishlist.dart';
 import 'package:siopa/app/controller/supplier_control/category.dart';
 import 'package:siopa/app/controller/supplier_control/full_screen.dart';
 import 'package:siopa/app/controller/supplier_control/s_login_c.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => VisitorStore()),
         ChangeNotifierProvider(create: (context) => VisitorStore()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => WishListProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(

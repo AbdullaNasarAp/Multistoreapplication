@@ -127,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(context)
                                           .push(MaterialPageRoute(
-                                        builder: (context) => const CartScreen(
+                                        builder: (context) => CartScreen(
                                             back: AppBarbackButton()),
                                       ));
                                     },
@@ -192,7 +192,7 @@ class ProfileScreen extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(context)
                                           .push(MaterialPageRoute(
-                                        builder: (context) => const Wishlist(),
+                                        builder: (context) => Wishlist(),
                                       ));
                                     },
                                     child: SizedBox(
@@ -253,9 +253,7 @@ class ProfileScreen extends StatelessWidget {
                                 InfoCard(
                                   icondata1: Icons.edit,
                                   title1: "Edit Profile",
-                                  ontap1: () {
-                                    log("dfdfdf");
-                                  },
+                                  ontap1: () {},
                                   title2: "Change Password",
                                   icondata2: Icons.security,
                                   ontap2: () {},
