@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/cart.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/cart.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/category.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/home.dart';
@@ -35,24 +37,30 @@ class _CostumerHomeScreenState extends State<CostumerHomeScreen> {
         selectedItemColor: xGreen,
         unselectedItemColor: xBlue,
         currentIndex: _selectedIndex,
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: "Category",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.shop),
             label: "Stores",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
+            icon: Badge(
+                isLabelVisible: context.watch<CartProvider>().getItems.isEmpty
+                    ? false
+                    : true,
+                label: Text(
+                    context.watch<CartProvider>().getItems.length.toString()),
+                child: const Icon(Icons.shopping_cart)),
             label: "Cart",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "Profile",
           ),

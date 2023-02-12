@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/costumer_control/cart.dart';
+import 'package:siopa/app/screen/minor_screen.dart/place_order.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/app_bar.dart';
 import 'package:siopa/app/widget/cart_widget.dart';
@@ -14,6 +15,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double total = context.watch<CartProvider>().totalPrice;
     return ScaffoldMessenger(
       key: scaffoldKey,
       child: Scaffold(
@@ -51,16 +53,13 @@ class CartScreen extends StatelessWidget {
                 Row(
                   children: [
                     const Text(
-                      "Total \$",
+                      "Total ₹",
                       style: TextStyle(
                         fontSize: 20,
                       ),
                     ),
                     Text(
-                      context
-                          .watch<CartProvider>()
-                          .totalPrice
-                          .toStringAsFixed(2),
+                      total.toStringAsFixed(2),
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -75,7 +74,15 @@ class CartScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  onPressed: () {},
+                  onPressed: total == 0.0
+                      ? null
+                      : () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const PlaceOrderScreen(),
+                            ),
+                          );
+                        },
                   child: const Text(
                     "CHECK OUT",
                     style: TextStyle(
