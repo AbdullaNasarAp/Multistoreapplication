@@ -13,8 +13,8 @@ class SupplierHomeScreen extends StatefulWidget {
 }
 
 class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
-  int _selectedIndex = 0;
-  final List<Widget> _tabs = [
+  int selectedIndex = 0;
+  final List<Widget> tabs = [
     const DashboardScreen(),
     CategoryScreen(),
     const StoresScreen(),
@@ -23,7 +23,7 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _tabs[_selectedIndex],
+      body: tabs[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         selectedLabelStyle:
@@ -33,7 +33,7 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: xBlack87,
         unselectedItemColor: xWhite,
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
@@ -54,7 +54,7 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
         ],
         onTap: (index) {
           setState(() {
-            _selectedIndex = index;
+            selectedIndex = index;
           });
         },
       ),

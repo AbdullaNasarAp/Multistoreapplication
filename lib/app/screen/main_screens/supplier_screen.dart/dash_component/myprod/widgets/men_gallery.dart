@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:siopa/app/screen/main_screens/widget/product_card_model.dart';
-import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/button_container.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';

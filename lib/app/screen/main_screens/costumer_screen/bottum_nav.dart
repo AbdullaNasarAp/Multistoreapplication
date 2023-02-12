@@ -17,10 +17,10 @@ class CostumerHomeScreen extends StatefulWidget {
 }
 
 class _CostumerHomeScreenState extends State<CostumerHomeScreen> {
-  int _selectedIndex = 0;
-  final List<Widget> _tabs = [
+  int selectedIndex = 0;
+  final List<Widget> tabs = [
     const HomeScreen(),
-    CategoryScreen(),
+    const CategoryScreen(),
     const StoresScreen(),
     CartScreen(),
     ProfileScreen(docId: FirebaseAuth.instance.currentUser!.uid),
@@ -28,15 +28,15 @@ class _CostumerHomeScreenState extends State<CostumerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _tabs[_selectedIndex],
+      body: tabs[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: xBlack87,
+        backgroundColor: xBlue,
         elevation: 0,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: xGreen,
-        unselectedItemColor: xBlue,
-        currentIndex: _selectedIndex,
+        selectedItemColor: xBlack87,
+        unselectedItemColor: xWhite,
+        currentIndex: selectedIndex,
         items: [
           const BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -67,7 +67,7 @@ class _CostumerHomeScreenState extends State<CostumerHomeScreen> {
         ],
         onTap: (index) {
           setState(() {
-            _selectedIndex = index;
+            selectedIndex = index;
           });
         },
       ),
