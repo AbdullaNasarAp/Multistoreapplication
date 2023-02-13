@@ -128,7 +128,7 @@ class SupplierLoginScreen extends StatelessWidget {
                                 onChanged: (value) {
                                   sLp.email = value;
                                 },
-                                style: TextStyle(color: xWhite),
+                                style: const TextStyle(color: xWhite),
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -162,7 +162,7 @@ class SupplierLoginScreen extends StatelessWidget {
                                 onChanged: (value) {
                                   sLp.password = value;
                                 },
-                                style: TextStyle(color: xWhite),
+                                style: const TextStyle(color: xWhite),
                                 obscureText: sLp.passwordVisible,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(

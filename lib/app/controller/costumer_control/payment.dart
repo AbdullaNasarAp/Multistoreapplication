@@ -32,6 +32,7 @@ class PaymentProvider with ChangeNotifier {
         'phone': data['phone'],
         'sid': item.suppId,
         'prodid': item.documentId,
+        'prodname': item.name,
         'orderid': orderId,
         'orderimage': item.imageUrl.first,
         'orderqty': item.qty,
@@ -75,6 +76,6 @@ class PaymentProvider with ChangeNotifier {
         fit: BoxFit.cover);
     ProgressDialog progressDialog = ProgressDialog(context: context);
     await progressDialog.show(
-        max: 100, msg: "Please Wait ... ", progressBgColor: Colors.blue);
+        max: 100, msg: "Please Wait ... ", progressBgColor: Colors.black);
   }
 }

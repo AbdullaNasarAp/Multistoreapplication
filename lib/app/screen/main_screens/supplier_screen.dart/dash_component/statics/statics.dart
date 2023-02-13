@@ -2,19 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/statics/widget.dart';
-import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/app_bar.dart';
-import 'package:siopa/app/widget/button_container.dart';
 
-class Balance extends StatelessWidget {
-  const Balance({super.key});
+class Statics extends StatelessWidget {
+  const Statics({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
         appBar: AppBar(
-          title: const AppBarTitle(title: "Balance"),
+          title: const AppBarTitle(title: "Statics"),
           leading: const AppBarbackButton(),
         ),
         body: StreamBuilder<QuerySnapshot>(
@@ -29,38 +27,37 @@ class Balance extends StatelessWidget {
                   child: Center(child: CircularProgressIndicator()));
             }
 
+            num itemCount = 0;
             double totalPrice = 0.0;
+
+            for (var item in snapshot.data!.docs) {
+              itemCount += item['orderqty'];
+            }
 
             for (var item in snapshot.data!.docs) {
               totalPrice += item['orderqty'] * item['orderprice'];
             }
 
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: StaticsWidget(
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  StaticsWidget(
+                    value0: "Sold Out",
+                    value1: snapshot.data!.docs.length,
+                    decimal: 0,
+                  ),
+                  StaticsWidget(
+                    value0: "Item Count",
+                    value1: itemCount,
+                    decimal: 0,
+                  ),
+                  StaticsWidget(
                     value0: "Total Out",
                     value1: totalPrice,
                     decimal: 2,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: InkWell(
-                    onTap: () {},
-                    child: const ButtonContainer(
-                        kWidth: double.infinity,
-                        kHeight: 60,
-                        kColors: xBlue,
-                        title: "Get my money",
-                        ls: 0,
-                        fontwght: FontWeight.bold,
-                        fontsz: 20,
-                        bRadius: 20),
-                  ),
-                )
-              ],
+                ],
+              ),
             );
           },
         ),

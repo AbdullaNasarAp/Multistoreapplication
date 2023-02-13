@@ -7,8 +7,8 @@ import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_componen
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/manage_product.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/my_store.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/my_product.dart';
-import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/orders.dart';
-import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/statics.dart';
+import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/order/orders.dart';
+import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/statics/statics.dart';
 import 'package:siopa/app/screen/minor_screen.dart/visit_store.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/app_bar.dart';

@@ -1,17 +1,15 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/costumer_control/cart.dart';
 import 'package:siopa/app/controller/costumer_control/payment.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/app_bar.dart';
 import 'package:siopa/app/widget/button_container.dart';
-import 'package:uuid/uuid.dart';
+import 'package:siopa/app/widget/payment_radio.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
@@ -287,43 +285,5 @@ class PaymentScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         });
-  }
-}
-
-class RadiolistTile extends StatelessWidget {
-  const RadiolistTile({
-    super.key,
-    required this.title,
-    required this.widget,
-    required this.groupValue,
-    required this.value,
-    required this.onchanged,
-  });
-  final String title;
-  final Widget widget;
-  final int groupValue;
-  final int value;
-  final Function onchanged;
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (value != groupValue) {
-          onchanged(value);
-        }
-      },
-      child: ListTile(
-        title: TextTitle(
-            title: title, ls: 0, fontwght: FontWeight.w500, fontsz: 18),
-        subtitle: widget,
-        leading: Radio<int>(
-          groupValue: groupValue,
-          value: value,
-          onChanged: (int? newValue) {
-            onchanged(newValue);
-          },
-        ),
-      ),
-    );
   }
 }

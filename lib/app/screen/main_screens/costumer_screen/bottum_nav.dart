@@ -5,7 +5,7 @@ import 'package:siopa/app/controller/costumer_control/cart.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/cart.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/category.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/home.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/profile.dart';
+import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile/profile.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/stores.dart';
 import 'package:siopa/app/utils/colors.dart';
 

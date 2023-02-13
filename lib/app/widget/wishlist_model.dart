@@ -78,12 +78,13 @@ class WishListModel extends StatelessWidget {
                               width: 10,
                             ),
                             context
-                                        .watch<CartProvider>()
-                                        .getItems
-                                        .firstWhereOrNull((prod) =>
-                                            prod.documentId ==
-                                            product.documentId) !=
-                                    null
+                                            .watch<CartProvider>()
+                                            .getItems
+                                            .firstWhereOrNull((prod) =>
+                                                prod.documentId ==
+                                                product.documentId) !=
+                                        null ||
+                                    product.qtty == 0
                                 ? const SizedBox()
                                 : Container(
                                     height: 35,
