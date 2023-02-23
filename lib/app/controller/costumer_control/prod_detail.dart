@@ -8,6 +8,7 @@ import 'package:collection/collection.dart';
 class ProductDetailProvider with ChangeNotifier {
   void productToCart(
       BuildContext context, dynamic scaffoldKey, dynamic prodList) {
+    var onSale = prodList['discount'];
     if (prodList['instock'] == 0) {
       MyMessengerHelper.showSnackBar(scaffoldKey, "This Item is Out of stock");
     } else if (context.read<CartProvider>().getItems.firstWhereOrNull(
@@ -17,7 +18,9 @@ class ProductDetailProvider with ChangeNotifier {
     } else {
       context.read<CartProvider>().addItems(
             prodList['prodname'],
-            prodList['price'],
+            onSale == 0
+                ? prodList['price']
+                : ((1 - (onSale / 100)) * prodList['price']),
             1,
             prodList['instock'],
             prodList['prodimage'],
@@ -29,13 +32,16 @@ class ProductDetailProvider with ChangeNotifier {
   }
 
   void productToFavorite(BuildContext context, dynamic prodList) {
+    var onSale = prodList['discount'];
     context.read<WishListProvider>().getWishItems.firstWhereOrNull(
                 (prod) => prod.documentId == prodList['productId']) !=
             null
         ? context.read<WishListProvider>().removeThis(prodList['productId'])
         : context.read<WishListProvider>().addWishItems(
               prodList['prodname'],
-              prodList['price'],
+              onSale == 0
+                  ? prodList['price']
+                  : ((1 - (onSale / 100)) * prodList['price']),
               1,
               prodList['instock'],
               prodList['prodimage'],

@@ -39,8 +39,6 @@ class PaymentScreen extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
-            Map<String, dynamic> data =
-                snapshot.data!.data() as Map<String, dynamic>;
             return Material(
               child: Scaffold(
                   appBar: AppBar(

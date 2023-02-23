@@ -9,8 +9,8 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppBarTitle(title: "Edit Profile"),
-        leading: AppBarbackButton(),
+        title: const AppBarTitle(title: "Edit Profile"),
+        leading: const AppBarbackButton(),
       ),
     );
   }

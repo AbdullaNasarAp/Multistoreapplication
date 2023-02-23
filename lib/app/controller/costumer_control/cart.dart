@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/auth/widgets.dart';
 
 class CartProvider with ChangeNotifier {
   final List<Product> _list = [];

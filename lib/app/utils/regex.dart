@@ -11,6 +11,12 @@ extension PriceValidator on String {
   }
 }
 
+extension DiscountValidator on String {
+  bool isValidDiscount() {
+    return RegExp(r'^([0-9]*)$').hasMatch(this);
+  }
+}
+
 extension EmailValidator on String {
   bool isEmailValidate() {
     return RegExp(

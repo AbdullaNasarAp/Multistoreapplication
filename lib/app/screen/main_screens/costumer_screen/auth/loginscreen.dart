@@ -116,7 +116,7 @@ class CostumerLoginScreen extends StatelessWidget {
                                 height: 20,
                               ),
                               TextFormField(
-                                style: TextStyle(color: xWhite),
+                                style: const TextStyle(color: xWhite),
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter you Email";
@@ -164,7 +164,7 @@ class CostumerLoginScreen extends StatelessWidget {
                                 onChanged: (value) {
                                   cLp.password = value;
                                 },
-                                style: TextStyle(color: xWhite),
+                                style: const TextStyle(color: xWhite),
 
                                 // controller: _passwordController,
                                 obscureText: cLp.passwordVisible,

@@ -183,7 +183,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                           onChanged: (value) {
                             sSp.storeName = value;
                           },
-                          style: TextStyle(color: xWhite),
+                          style: const TextStyle(color: xWhite),
                           decoration: InputDecoration(
                               labelText: 'Store Name',
                               border: OutlineInputBorder(
@@ -222,7 +222,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                           onChanged: (value) {
                             sSp.email = value;
                           },
-                          style: TextStyle(color: xWhite),
+                          style: const TextStyle(color: xWhite),
                           // controller: _emailController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -257,9 +257,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                           onChanged: (value) {
                             sSp.password = value;
                           },
-                          style: TextStyle(color: xWhite),
-                          // c
-                          //ontroller: _passwordController,
+                          style: const TextStyle(color: xWhite),
                           obscureText: sSp.passwordVisible,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -301,7 +299,7 @@ class SupplierSignUpScreen extends StatelessWidget {
                             }
                             return null;
                           },
-                          style: TextStyle(color: xWhite),
+                          style: const TextStyle(color: xWhite),
                           onChanged: (value) {
                             sSp.password = value;
                           },

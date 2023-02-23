@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:siopa/app/widget/app_bar.dart';
 
 class MyStore extends StatelessWidget {
@@ -10,8 +8,8 @@ class MyStore extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppBarTitle(title: "My Store"),
-        leading: AppBarbackButton(),
+        title: const AppBarTitle(title: "My Store"),
+        leading: const AppBarbackButton(),
       ),
     );
   }

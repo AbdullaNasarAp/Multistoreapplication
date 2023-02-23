@@ -17,6 +17,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var onSale = prodList['discount'];
     final Stream<QuerySnapshot> usersStream = FirebaseFirestore.instance
         .collection('products')
         .where('maincateg', isEqualTo: prodList['maincateg'])
@@ -54,14 +55,64 @@ class ProductDetailScreen extends StatelessWidget {
                                 fontwght: FontWeight.bold,
                                 fontsz: 20),
                             sizedBox,
-                            const HotDealBanner(),
+                            prodList['discount'] == 0
+                                ? const SizedBox(
+                                    height: 0,
+                                  )
+                                : Column(
+                                    children: [
+                                      const HotDealBanner(),
+                                      TextTitle(
+                                          title: "${prodList['discount']}% OFF",
+                                          ls: 0,
+                                          color: Colors.green,
+                                          fontwght: FontWeight.bold,
+                                          fontsz: 20),
+                                    ],
+                                  ),
                             sizedBox,
-                            TextTitle(
-                                title: "MRP ${prodList['price'].toString()}",
-                                ls: 0,
-                                color: Colors.red,
-                                fontwght: FontWeight.bold,
-                                fontsz: 20),
+                            Row(
+                              children: [
+                                const TextTitle(
+                                    title: "MRP",
+                                    ls: 0,
+                                    color: xBlack87,
+                                    fontwght: FontWeight.bold,
+                                    fontsz: 20),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                onSale == 0
+                                    ? TextTitle(
+                                        title: prodList['price']
+                                            .toStringAsFixed(1),
+                                        ls: 0,
+                                        color: xred,
+                                        fontwght: FontWeight.bold,
+                                        fontsz: 20)
+                                    : TextTitle(
+                                        title: prodList['price']
+                                            .toStringAsFixed(1),
+                                        ls: 0,
+                                        color: xGrey,
+                                        decor: TextDecoration.lineThrough,
+                                        fontwght: FontWeight.bold,
+                                        fontsz: 18),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                onSale == 0
+                                    ? const Text("")
+                                    : TextTitle(
+                                        title: ((1 - (onSale / 100)) *
+                                                prodList['price'])
+                                            .toStringAsFixed(1),
+                                        ls: 0,
+                                        color: xred,
+                                        fontwght: FontWeight.bold,
+                                        fontsz: 20),
+                              ],
+                            ),
                             sizedBox,
                             prodList['instock'] == 0
                                 ? const TextTitle(

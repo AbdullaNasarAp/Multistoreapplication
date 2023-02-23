@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/auth/loginscreen.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/balance.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/edit_profile.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/manage_product.dart';
-import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/my_store.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/my_product.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/myprod/order/orders.dart';
 import 'package:siopa/app/screen/main_screens/supplier_screen.dart/dash_component/statics/statics.dart';

@@ -56,19 +56,19 @@ List<String> electronics = [
 
 List<String> shoes = [
   "Subcategory",
-  'men\nslippers',
-  'men\nclassic',
-  'men\ncasual',
-  'men\nboots',
-  'men\ncanvas',
-  'men\nsport',
-  'men\nsnadals',
-  'home\nslippers',
-  'women\nslippers',
-  'women\nboots',
-  'women\nheels',
-  'women\nsport',
-  'women\nsnadals',
+  'men slippers',
+  'men classic',
+  'men casual',
+  'men boots',
+  'men canvas',
+  'men sport',
+  'men snadals',
+  'home slippers',
+  'women slippers',
+  'women boots',
+  'women heels',
+  'women sport',
+  'women snadals',
   'other'
 ];
 

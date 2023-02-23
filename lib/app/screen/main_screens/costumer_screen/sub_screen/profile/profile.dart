@@ -1,15 +1,13 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/auth/loginscreen.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/cart.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/order/order.dart';
+import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile/widget/alert.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile/widget/cart_order_wish.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile/widget/prof_widget.dart';
-import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/wishlist.dart';
+import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile/widget/sliver_costum_app_bar.dart';
 import 'package:siopa/app/utils/colors.dart';
-import 'package:siopa/app/widget/app_bar.dart';
+import '../../../../../widget/cpi.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.docId});
@@ -48,60 +46,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 CustomScrollView(
                   slivers: [
-                    SliverAppBar(
-                      pinned: true,
-                      elevation: 0,
-                      backgroundColor: xBlue,
-                      expandedHeight: 140,
-                      flexibleSpace: LayoutBuilder(
-                        builder: (context, constraints) {
-                          return FlexibleSpaceBar(
-                            title: AnimatedOpacity(
-                              opacity:
-                                  constraints.biggest.height <= 120 ? 1 : 0,
-                              duration: const Duration(milliseconds: 200),
-                              child: Text(
-                                "Accounts".toUpperCase(),
-                                style: const TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: xWhite),
-                              ),
-                            ),
-                            background: Container(
-                              decoration: const BoxDecoration(color: xBlue),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 25.0, left: 30),
-                                child: Row(
-                                  children: [
-                                    const CircleAvatar(
-                                      radius: 45,
-                                      backgroundImage:
-                                          AssetImage("images/inapp/guest.png"),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 25.0),
-                                      child: Text(
-                                        data['name'] == ''
-                                            ? 'guest'.toUpperCase()
-                                            : data['name'].toUpperCase(),
-                                        style: const TextStyle(
-                                            fontSize: 24,
-                                            color: xWhite,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    SliverCostumAppBar(data: data),
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
@@ -119,12 +64,14 @@ class ProfileScreen extends StatelessWidget {
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                                const ProfileHeader(title: "  Account Info  "),
+                                const ProfileHeader(
+                                  title: "  Account Info  ",
+                                ),
                                 InfoCard(
                                   icondata1: Icons.email,
                                   title1: "Email Address",
                                   sub1: data['email'] == ''
-                                      ? 'guest@example.com'
+                                      ? 'guest@guest.com'
                                       : data['email'],
                                   ontap1: () {},
                                   title2: "Phone Number",
@@ -168,16 +115,7 @@ class ProfileScreen extends StatelessWidget {
           );
         }
 
-        return Container(
-          height: MediaQuery.of(context).size.height * 100,
-          width: MediaQuery.of(context).size.width * 100,
-          color: xBlack87,
-          child: const Center(
-            child: CircularProgressIndicator(
-              color: xBlue,
-            ),
-          ),
-        );
+        return const CPI();
       },
     );
   }
@@ -185,49 +123,20 @@ class ProfileScreen extends StatelessWidget {
   Future<dynamic> myAlert(BuildContext context) {
     return showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        backgroundColor: xBlack,
-        title: const Text(
-          "Log out",
-          style: TextStyle(color: xWhite),
-        ),
-        content: const Text(
-          "Are you sure to log out",
-          style: TextStyle(color: xWhite),
-        ),
-        actions: [
-          OutlinedButton(
-            style:
-                ButtonStyle(backgroundColor: MaterialStateProperty.all(xBlue)),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text(
-              "No",
-              style: TextStyle(color: xWhite),
+      builder: (context) => Alert(
+        onpress: () {
+          FirebaseAuth.instance.signOut();
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => CostumerLoginScreen(),
             ),
-          ),
-          OutlinedButton(
-            style:
-                ButtonStyle(backgroundColor: MaterialStateProperty.all(xBlue)),
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => CostumerLoginScreen(),
-                ),
-                (route) {
-                  return false;
-                },
-              );
+            (route) {
+              return false;
             },
-            child: const Text(
-              "Yes",
-              style: TextStyle(color: xWhite),
-            ),
-          ),
-        ],
+          );
+        },
+        title: "Logout",
+        content: "Are you sure to logout ?",
       ),
     );
   }

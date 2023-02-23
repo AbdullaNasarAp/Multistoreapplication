@@ -23,13 +23,17 @@ class SubCategory extends StatelessWidget {
         .where('subcateg', isEqualTo: subcategoryName)
         .snapshots();
     return Scaffold(
-      backgroundColor: xBlack87,
+      backgroundColor: xWhite,
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: xBlue,
         centerTitle: true,
-        title: AppBarTitle(title: subcategoryName),
+        title: TextTitle(
+            title: subcategoryName.toUpperCase(),
+            ls: 0,
+            fontwght: FontWeight.bold,
+            fontsz: 20),
         leading: const AppBarbackButton(),
       ),
       body: StreamBuilder<QuerySnapshot>(

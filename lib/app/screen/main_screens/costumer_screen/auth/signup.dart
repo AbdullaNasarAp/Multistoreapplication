@@ -120,7 +120,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                           height: 30,
                         ),
                         TextFormField(
-                          style: TextStyle(color: xWhite),
+                          style: const TextStyle(color: xWhite),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter you Fullname";
@@ -156,7 +156,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                           height: 20,
                         ),
                         TextFormField(
-                          style: TextStyle(color: xWhite),
+                          style: const TextStyle(color: xWhite),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter you Email";
@@ -194,7 +194,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                           height: 20,
                         ),
                         TextFormField(
-                          style: TextStyle(color: xWhite),
+                          style: const TextStyle(color: xWhite),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter you Password";
@@ -240,7 +240,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                           height: 20,
                         ),
                         TextFormField(
-                          style: TextStyle(color: xWhite),
+                          style: const TextStyle(color: xWhite),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter you Password";
@@ -288,7 +288,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const CostumerHomeScreen(),
+                              builder: (context) => CostumerHomeScreen(),
                             ));
                           },
                           child: cSp.processing == true
@@ -393,7 +393,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(
                                         builder: (context) =>
-                                            const CostumerHomeScreen(),
+                                            CostumerHomeScreen(),
                                       ));
                                     },
                                     child: Column(

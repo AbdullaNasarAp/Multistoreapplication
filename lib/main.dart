@@ -2,11 +2,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/b_nav.dart';
 import 'package:siopa/app/controller/costumer_control/c_login_c.dart';
 import 'package:siopa/app/controller/costumer_control/c_signup_c.dart';
 import 'package:siopa/app/controller/costumer_control/cart.dart';
 import 'package:siopa/app/controller/costumer_control/payment.dart';
 import 'package:siopa/app/controller/costumer_control/prod_detail.dart';
+import 'package:siopa/app/controller/costumer_control/search.dart';
 import 'package:siopa/app/controller/costumer_control/wishlist.dart';
 import 'package:siopa/app/controller/supplier_control/category.dart';
 import 'package:siopa/app/controller/supplier_control/full_screen.dart';
@@ -43,6 +45,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => PaymentProvider()),
         ChangeNotifierProvider(create: (context) => WishListProvider()),
+        ChangeNotifierProvider(create: (context) => SearchProvider()),
+        ChangeNotifierProvider(
+            create: (context) => CostumerHomeScreenProvider())
       ],
       child: MaterialApp(
         theme: ThemeData(

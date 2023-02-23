@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:siopa/app/screen/minor_screen.dart/search.dart';
+import 'package:siopa/app/screen/minor_screen.dart/search/search.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/button_container.dart';
 

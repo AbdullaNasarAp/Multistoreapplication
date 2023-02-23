@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +9,13 @@ import 'package:path/path.dart' as path;
 import 'package:siopa/app/screen/main_screens/costumer_screen/auth/widgets.dart';
 import 'package:siopa/app/utils/category_list.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../utils/colors.dart';
 
 class UploadProvider with ChangeNotifier {
   late double proPrice;
   late int quantity;
   late String proName;
+  late int? discount = 0;
   late String proDesc;
   late String prodId;
   String mainCategoryValue = 'Select Category';
@@ -79,7 +78,7 @@ class UploadProvider with ChangeNotifier {
         'proddesc': proDesc,
         'sid': FirebaseAuth.instance.currentUser!.uid,
         'prodimage': imgUrlList,
-        'discount': 0
+        'discount': discount
       }).whenComplete(() {
         processing = false;
         imgFileList = [];

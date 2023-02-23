@@ -77,7 +77,7 @@ class HomeTab extends StatelessWidget {
     return Tab(
       child: Text(
         title,
-        style: TextStyle(color: xWhite),
+        style: const TextStyle(color: xWhite),
       ),
     );
   }

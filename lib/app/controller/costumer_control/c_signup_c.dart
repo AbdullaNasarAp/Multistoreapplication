@@ -34,9 +34,10 @@ class CostumerSignupProvider with ChangeNotifier {
           'cid': uid,
         });
         formKey.currentState!.reset();
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => CostumerLoginScreen(),
-        ));
+        await Future.delayed(const Duration(microseconds: 100)).whenComplete(
+            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => CostumerLoginScreen(),
+                )));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           processing = false;

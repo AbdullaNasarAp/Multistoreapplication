@@ -59,7 +59,7 @@ class PaymentProvider with ChangeNotifier {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => const CostumerHomeScreen(),
+        builder: (context) => CostumerHomeScreen(),
       ),
       (route) => false,
     );

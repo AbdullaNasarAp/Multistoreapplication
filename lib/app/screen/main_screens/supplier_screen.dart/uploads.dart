@@ -170,7 +170,8 @@ class UploadsScreen extends StatelessWidget {
                                       const TextInputType.numberWithOptions(
                                           decimal: true),
                                   decoration: inputDecoration.copyWith(
-                                      labelStyle: TextStyle(color: xBlack87),
+                                      labelStyle:
+                                          const TextStyle(color: xBlack87),
                                       labelText: 'Price',
                                       hintText: "ProductPrice")),
                             ),
@@ -215,19 +216,26 @@ class UploadsScreen extends StatelessWidget {
                             SizedBox(
                               width: wmediaSize * 0.45,
                               child: TextFormField(
+                                maxLength: 2,
                                 style: const TextStyle(color: xBlack87),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "Enter the Discount";
+                                    return null;
+                                  } else if (value.isValidDiscount() != true) {
+                                    return "Enter valid discount";
                                   }
                                   return null;
                                 },
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 keyboardType: TextInputType.number,
+                                onSaved: (newValue) {
+                                  uP.discount = int.parse(newValue!);
+                                },
                                 decoration: inputDecoration.copyWith(
                                     labelText: 'Discount',
-                                    labelStyle: TextStyle(color: xBlack87),
+                                    labelStyle:
+                                        const TextStyle(color: xBlack87),
                                     hintText: "Product Discount"),
                               ),
                             ),
@@ -252,7 +260,8 @@ class UploadsScreen extends StatelessWidget {
                                 keyboardType: TextInputType.number,
                                 decoration: inputDecoration.copyWith(
                                     labelText: 'Quantity',
-                                    labelStyle: TextStyle(color: xBlack87),
+                                    labelStyle:
+                                        const TextStyle(color: xBlack87),
                                     hintText: "Enter the Quantity"),
                               ),
                             ),
@@ -280,7 +289,7 @@ class UploadsScreen extends StatelessWidget {
                             decoration: inputDecoration.copyWith(
                                 alignLabelWithHint: true,
                                 labelText: 'Product Name',
-                                labelStyle: TextStyle(color: xBlack87),
+                                labelStyle: const TextStyle(color: xBlack87),
                                 hintText: "Enter Product Name"),
                           ),
                         ),
@@ -306,14 +315,14 @@ class UploadsScreen extends StatelessWidget {
                             decoration: inputDecoration.copyWith(
                                 alignLabelWithHint: true,
                                 labelText: 'Product Description',
-                                labelStyle: TextStyle(color: xBlack87),
+                                labelStyle: const TextStyle(color: xBlack87),
                                 hintText: "Enter Product Description"),
                           ),
                         ),
                         SizedBox(
                           width: double.infinity,
                           child: uP.processing == true
-                              ? const CircularProgressIndicator()
+                              ? const Center(child: CircularProgressIndicator())
                               : RawMaterialButton(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
