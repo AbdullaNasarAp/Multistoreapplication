@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/order.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/auth/loginscreen.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/button_container.dart';
 import 'package:intl/intl.dart';
 
 class CostumerOrder extends StatelessWidget {
-  const CostumerOrder({super.key, this.order});
+  CostumerOrder({super.key, this.order});
   final dynamic order;
 
   @override
@@ -90,7 +95,7 @@ class CostumerOrder extends StatelessWidget {
               width: double.infinity,
               height: 250,
               decoration: BoxDecoration(
-                  color: order['deliverystatus'] == 'delivered'
+                  color: order['deliverystatus'] == 'Delivered'
                       ? Colors.red.shade200
                       : Colors.black12,
                   borderRadius: BorderRadius.circular(10)),
@@ -145,21 +150,24 @@ class CostumerOrder extends StatelessWidget {
                             fontsz: 16,
                           )
                         : const Text(""),
-                    order['deliverystatus'] == 'delivered' &&
+                    order['deliverystatus'] == 'Delivered' &&
                             order['orderreview'] == false
                         ? Textbutton(
                             title: "Write Review",
-                            ontap: () {},
+                            ontap: () {
+                              Provider.of<OrderProvider>(context, listen: false)
+                                  .reviewAdding(order, context);
+                            },
                             colors: xBlue,
                           )
                         : const Text(''),
-                    order['deliverystatus'] == 'delivered' &&
+                    order['deliverystatus'] == 'Delivered' &&
                             order['orderreview'] == true
                         ? Row(
                             children: const [
                               Icon(
-                                FontAwesomeIcons.checkDouble,
-                                color: xBlack87,
+                                Icons.checklist_outlined,
+                                color: xGrey,
                               ),
                               TextTitle(
                                 title: "Review Added",

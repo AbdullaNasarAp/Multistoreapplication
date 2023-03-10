@@ -54,6 +54,10 @@ dependencies:
   path: ^1.8.2
   collection: ^1.17.0
   lint: ^2.0.1
+  flutter_stripe: ^3.0.0
+  http: ^0.13.5
+  flutter_rating_bar: ^4.0.1
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

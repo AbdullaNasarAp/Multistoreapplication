@@ -1,15 +1,18 @@
 // ignore_for_file: deprecated_member_use
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/costumer_control/b_nav.dart';
 import 'package:siopa/app/controller/costumer_control/c_login_c.dart';
 import 'package:siopa/app/controller/costumer_control/c_signup_c.dart';
 import 'package:siopa/app/controller/costumer_control/cart.dart';
+import 'package:siopa/app/controller/costumer_control/order.dart';
 import 'package:siopa/app/controller/costumer_control/payment.dart';
 import 'package:siopa/app/controller/costumer_control/prod_detail.dart';
 import 'package:siopa/app/controller/costumer_control/search.dart';
 import 'package:siopa/app/controller/costumer_control/wishlist.dart';
+import 'package:siopa/app/controller/stripe_id.dart';
 import 'package:siopa/app/controller/supplier_control/category.dart';
 import 'package:siopa/app/controller/supplier_control/full_screen.dart';
 import 'package:siopa/app/controller/supplier_control/s_login_c.dart';
@@ -20,6 +23,14 @@ import 'package:siopa/app/screen/main_screens/welcome_screen.dart';
 import 'package:siopa/app/utils/colors.dart';
 
 void main() async {
+  //stripe initializing
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = stripePublishableKey;
+  Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+  Stripe.urlScheme = 'flutterstripe';
+  await Stripe.instance.applySettings();
+
+  //firebase intializing
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
   runApp(const MyApp());
@@ -30,6 +41,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //provider intializing in main.dart of each screen
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SupplierLoginProvider()),
@@ -46,10 +58,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => PaymentProvider()),
         ChangeNotifierProvider(create: (context) => WishListProvider()),
         ChangeNotifierProvider(create: (context) => SearchProvider()),
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
         ChangeNotifierProvider(
             create: (context) => CostumerHomeScreenProvider())
       ],
       child: MaterialApp(
+        // setup theme for the application
         theme: ThemeData(
           useMaterial3: true,
           appBarTheme: const AppBarTheme(

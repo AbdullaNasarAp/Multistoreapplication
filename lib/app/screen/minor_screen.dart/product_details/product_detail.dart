@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:siopa/app/screen/main_screens/widget/product_card_model.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/widget/bottum_sheet.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/widget/prod_detail_header.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/widget/prod_image.dart';
+import 'package:siopa/app/screen/minor_screen.dart/product_details/widget/review.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/widget/safe_banner.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/button_container.dart';
@@ -22,6 +25,12 @@ class ProductDetailScreen extends StatelessWidget {
         .collection('products')
         .where('maincateg', isEqualTo: prodList['maincateg'])
         .where('subcateg', isEqualTo: prodList['subcateg'])
+        .snapshots();
+
+    final Stream<QuerySnapshot> reviewStream = FirebaseFirestore.instance
+        .collection('products')
+        .doc(prodList['productId'])
+        .collection('reviews')
         .snapshots();
 
     final GlobalKey<ScaffoldMessengerState> scaffoldKey =
@@ -141,6 +150,8 @@ class ProductDetailScreen extends StatelessWidget {
                                 fontsz: 15),
                             sizedBox,
                             const SafeBanner(),
+                            sizedBox20,
+                            Reviews(reviewStream: reviewStream),
                             sizedBox20,
                             const ProductDetailHeader(title: "Recommended"),
                             SizedBox(

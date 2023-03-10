@@ -257,7 +257,11 @@ class PaymentScreen extends StatelessWidget {
                                   },
                                 );
                               } else if (value.selectedValue == 2) {
-                                log("visa");
+                                int payment = totalPaid.round();
+                                int pay = payment * 100;
+
+                                value.makePayment(
+                                    snapshot.data, context, pay.toString());
                               } else if (value.selectedValue == 3) {
                                 log("paypal");
                               }
