@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/supplier_control/visitor_store.dart';
 import 'package:siopa/app/screen/main_screens/widget/product_card_model.dart';
+import 'package:siopa/app/screen/minor_screen.dart/edit_store.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/widget/button_container.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
@@ -83,7 +84,14 @@ class VisitStore extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                   child: MaterialButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditStoreScreen(data: data),
+                                          ),
+                                        );
+                                      },
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,

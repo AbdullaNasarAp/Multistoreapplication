@@ -43,6 +43,7 @@ class ButtonContainer extends StatelessWidget {
             title: title,
             color: xWhite,
             ls: ls,
+            textalign: TextAlign.center,
             fontwght: fontwght,
             fontsz: fontsz,
           ),

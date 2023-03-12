@@ -24,61 +24,67 @@ class SupplierSignupProvider with ChangeNotifier {
       FirebaseFirestore.instance.collection('suppliers');
   signUp(BuildContext context, dynamic scaffoldKeys, dynamic formKey) async {
     processing = true;
+
     notifyListeners();
-    if (formKey.currentState!.validate()) {
-      if (imgFile != null) {
-        try {
-          await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: email, password: password);
 
-          firebasestorage.Reference ref = firebasestorage
-              .FirebaseStorage.instance
-              .ref('sup-images/$email.jpg');
-          await ref.putFile(File(imgFile!.path));
+    try {
+      if (formKey.currentState!.validate()) {
+        if (imgFile != null) {
+          try {
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                email: email, password: password);
 
-          uid = FirebaseAuth.instance.currentUser!.uid;
-          storeLogo = await ref.getDownloadURL();
-          await suppliers.doc(uid).set({
-            'storename': storeName,
-            'email': email,
-            'storelogo': storeLogo,
-            'phone': '',
-            'sid': uid,
-            'coverimage': '',
-          });
+            firebasestorage.Reference ref = firebasestorage
+                .FirebaseStorage.instance
+                .ref('sup-images/$email.jpg');
+            await ref.putFile(File(imgFile!.path));
 
-          formKey.currentState!.reset();
+            uid = FirebaseAuth.instance.currentUser!.uid;
+            storeLogo = await ref.getDownloadURL();
+            await suppliers.doc(uid).set({
+              'storename': storeName,
+              'email': email,
+              'storelogo': storeLogo,
+              'phone': '',
+              'sid': uid,
+              'coverimage': '',
+            });
 
-          imgFile = null;
-          notifyListeners();
+            formKey.currentState!.reset();
+
+            imgFile = null;
+            notifyListeners();
+            processing = false;
+            notifyListeners();
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => SupplierLoginScreen(),
+            ));
+          } on FirebaseAuthException catch (e) {
+            if (e.code == 'weak-password') {
+              processing = false;
+              notifyListeners();
+              MyMessengerHelper.showSnackBar(
+                  scaffoldKeys, "The password provided is too weak");
+            } else if (e.code == 'email-already-in-use') {
+              processing = false;
+              notifyListeners();
+              MyMessengerHelper.showSnackBar(
+                  scaffoldKeys, "The account with this email already exist");
+            }
+          }
+        } else {
           processing = false;
           notifyListeners();
-          // ignore: use_build_context_synchronously
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => SupplierLoginScreen(),
-          ));
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'weak-password') {
-            processing = false;
-            notifyListeners();
-            MyMessengerHelper.showSnackBar(
-                scaffoldKeys, "The password provided is too weak");
-          } else if (e.code == 'email-already-in-use') {
-            processing = false;
-            notifyListeners();
-            MyMessengerHelper.showSnackBar(
-                scaffoldKeys, "The account with this email already exist");
-          }
+          MyMessengerHelper.showSnackBar(scaffoldKeys, "Pls Pick a Image");
         }
       } else {
         processing = false;
         notifyListeners();
-        MyMessengerHelper.showSnackBar(scaffoldKeys, "Pls Pick a Image");
+        MyMessengerHelper.showSnackBar(scaffoldKeys, "Pls fill all fields");
       }
-    } else {
-      processing = false;
-      notifyListeners();
-      MyMessengerHelper.showSnackBar(scaffoldKeys, "Pls fill all fields");
+    } catch (e) {
+      log(e.toString());
     }
 
     notifyListeners();
