@@ -14,6 +14,7 @@ import 'package:siopa/app/controller/costumer_control/search.dart';
 import 'package:siopa/app/controller/costumer_control/wishlist.dart';
 import 'package:siopa/app/controller/stripe_id.dart';
 import 'package:siopa/app/controller/supplier_control/category.dart';
+import 'package:siopa/app/controller/supplier_control/edit_product.dart';
 import 'package:siopa/app/controller/supplier_control/edit_store.dart';
 import 'package:siopa/app/controller/supplier_control/full_screen.dart';
 import 'package:siopa/app/controller/supplier_control/s_login_c.dart';
@@ -62,7 +63,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OrderProvider()),
         ChangeNotifierProvider(create: (context) => EditStoreProvider()),
         ChangeNotifierProvider(
-            create: (context) => CostumerHomeScreenProvider())
+            create: (context) => CostumerHomeScreenProvider()),
+        ChangeNotifierProvider(create: (context) => EditProductProvider())
       ],
       child: MaterialApp(
         // setup theme for the application

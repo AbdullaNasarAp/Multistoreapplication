@@ -7,6 +7,8 @@ import 'package:siopa/app/widget/button_container.dart';
 import '../../../controller/costumer_control/wishlist.dart';
 import 'package:collection/collection.dart';
 
+import '../../minor_screen.dart/edit_product.dart';
+
 class ProductCardModel extends StatelessWidget {
   const ProductCardModel({
     super.key,
@@ -59,23 +61,23 @@ class ProductCardModel extends StatelessWidget {
                       mL: 2,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         const Text("₹"),
                         onSale == 0
                             ? TextTitle(
-                                title: products['price'].toStringAsFixed(1),
+                                title: products['price'].toStringAsFixed(0),
                                 ls: 0,
                                 color: xBlack87,
                                 fontwght: FontWeight.normal,
-                                fontsz: 13)
+                                fontsz: 11)
                             : TextTitle(
-                                title: products['price'].toStringAsFixed(1),
+                                title: products['price'].toStringAsFixed(0),
                                 ls: 0,
                                 color: xGrey,
                                 decor: TextDecoration.lineThrough,
                                 fontwght: FontWeight.normal,
-                                fontsz: 12),
+                                fontsz: 11),
                         onSale == 0
                             ? const Text("")
                             : TextTitle(
@@ -89,7 +91,12 @@ class ProductCardModel extends StatelessWidget {
                         products['sid'] ==
                                 FirebaseAuth.instance.currentUser!.uid
                             ? IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        EditProduct(items: products),
+                                  ));
+                                },
                                 icon: const Icon(
                                   Icons.edit,
                                   color: xBlue,
@@ -128,10 +135,12 @@ class ProductCardModel extends StatelessWidget {
                                     ? const Icon(
                                         Icons.favorite,
                                         color: Colors.red,
+                                        size: 20,
                                       )
                                     : const Icon(
                                         Icons.favorite_outline_rounded,
                                         color: Colors.red,
+                                        size: 20,
                                       )),
                       ],
                     )

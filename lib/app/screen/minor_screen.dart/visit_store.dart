@@ -42,10 +42,15 @@ class VisitStore extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: 100,
-              flexibleSpace: Image.asset(
-                "images/inapp/coverimage.jpg",
-                fit: BoxFit.fitWidth,
-              ),
+              flexibleSpace: data['coverimage'] == ''
+                  ? Image.asset(
+                      "images/inapp/coverimage.jpg",
+                      fit: BoxFit.fitWidth,
+                    )
+                  : Image.network(
+                      data['coverimage'],
+                      fit: BoxFit.cover,
+                    ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
