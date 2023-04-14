@@ -1,11 +1,13 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/supplier_control/edit_product.dart';
-import 'package:siopa/app/utils/category_list.dart';
 import 'package:siopa/app/utils/colors.dart';
 import 'package:siopa/app/utils/regex.dart';
 import 'package:siopa/app/widget/app_bar.dart';
 import 'package:siopa/app/widget/button_container.dart';
+
+import 'widget.dart';
 
 class EditProduct extends StatelessWidget {
   EditProduct({super.key, this.items});
@@ -64,133 +66,46 @@ class EditProduct extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Column(
                           children: [
-                            Container(
+                            FirstSectionPreviewPrevious(
+                              hmediaSize: hmediaSize,
+                              wmediaSize: wmediaSize,
+                              items: items,
+                              hsizedBox: hsizedBox,
+                            ),
+                            sizedBox20,
+                            ExpandablePanel(
+                              theme: const ExpandableThemeData(hasIcon: false),
+                              header: Container(
+                                width: 100,
+                                height: 50,
                                 decoration: BoxDecoration(
-                                  color: xBlue,
-                                  borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: xBlue.withOpacity(0.2)),
+                                child: const Center(
+                                  child: TextTitle(
+                                      title: "Change Images & Categories",
+                                      color: xBlue,
+                                      ls: 0,
+                                      fontwght: FontWeight.bold,
+                                      fontsz: 17),
                                 ),
-                                height: hmediaSize * 0.25,
-                                width: wmediaSize * 0.45,
-                                child: ePP.previewCurrentImages(items)),
-                            Column(
-                              children: [
-                                const TextTitle(
-                                    title: "Main Category",
-                                    ls: 0,
-                                    fontwght: FontWeight.normal,
-                                    fontsz: 13),
-                                Container(
-                                  width: 100,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: xBlue.withOpacity(0.2)),
-                                  child:
-                                      Center(child: Text(items['maincateg'])),
-                                ),
-                                hsizedBox,
-                                const TextTitle(
-                                    title: "Sub Category",
-                                    ls: 0,
-                                    fontwght: FontWeight.normal,
-                                    fontsz: 13),
-                                Container(
-                                  width: 100,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: xBlue.withOpacity(0.2)),
-                                  child: Center(child: Text(items['subcateg'])),
-                                ),
-                              ],
-                            )
+                              ),
+                              collapsed: const SizedBox(
+                                height: 20,
+                              ),
+                              expanded: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SecondSectionEditCategAndImg(
+                                    hmediaSize: hmediaSize,
+                                    wmediaSize: wmediaSize,
+                                    hsizedBox: hsizedBox),
+                              ),
+                            ),
                           ],
                         ),
                         sizedBox20,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: xBlue,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              height: hmediaSize * 0.25,
-                              width: wmediaSize * 0.45,
-                              child: ePP.imgFileList != null
-                                  ? ePP.previewImages()
-                                  : const Center(
-                                      child: Text(
-                                        "       you haven't\n picked images yet !",
-                                        style: TextStyle(color: xWhite),
-                                      ),
-                                    ),
-                            ),
-                            Column(
-                              children: [
-                                const TextTitle(
-                                    title: "Select main Category",
-                                    ls: 0,
-                                    fontwght: FontWeight.normal,
-                                    fontsz: 13),
-                                DropdownButton(
-                                  alignment: Alignment.centerLeft,
-                                  menuMaxHeight: 150,
-                                  value: ePP.mainCategoryValue,
-                                  focusColor: xBlue,
-                                  dropdownColor: xWhite,
-                                  items: maincateg
-                                      .map<DropdownMenuItem<String>>((value) {
-                                    return DropdownMenuItem(
-                                      value: value,
-                                      child: TextTitle(
-                                          title: value,
-                                          ls: 0,
-                                          fontwght: FontWeight.normal,
-                                          fontsz: 13),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    ePP.selectMainCateg(value);
-                                  },
-                                ),
-                                hsizedBox,
-                                const TextTitle(
-                                    title: "Select subCategory",
-                                    ls: 0,
-                                    fontwght: FontWeight.normal,
-                                    fontsz: 13),
-                                DropdownButton(
-                                  alignment: Alignment.centerLeft,
-                                  menuMaxHeight: 150,
-                                  disabledHint: const Text("Select Category"),
-                                  value: ePP.subCategoryValue,
-                                  focusColor: xBlue,
-                                  dropdownColor: xWhite,
-                                  items: ePP.subCategoryList
-                                      .map<DropdownMenuItem<String>>((value) {
-                                    return DropdownMenuItem(
-                                      value: value,
-                                      child: TextTitle(
-                                          title: value,
-                                          ls: 0,
-                                          fontwght: FontWeight.normal,
-                                          fontsz: 13),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    ePP.subcategValueset(value);
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
                         const Divider(
                           thickness: 1.3,
                           color: xBlack,
@@ -200,6 +115,8 @@ class EditProduct extends StatelessWidget {
                             SizedBox(
                               width: wmediaSize * 0.45,
                               child: TextFormField(
+                                  initialValue:
+                                      items['price'].toStringAsFixed(2),
                                   style: const TextStyle(color: xBlack87),
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -232,6 +149,8 @@ class EditProduct extends StatelessWidget {
                             SizedBox(
                               width: wmediaSize * 0.45,
                               child: TextFormField(
+                                initialValue:
+                                    items['discount'].toStringAsFixed(2),
                                 maxLength: 2,
                                 style: const TextStyle(color: xBlack87),
                                 validator: (value) {
@@ -259,6 +178,8 @@ class EditProduct extends StatelessWidget {
                             SizedBox(
                               width: wmediaSize * 0.45,
                               child: TextFormField(
+                                initialValue:
+                                    items['instock'].toStringAsFixed(0),
                                 style: const TextStyle(color: xBlack87),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -287,6 +208,7 @@ class EditProduct extends StatelessWidget {
                         SizedBox(
                           width: wmediaSize * 100,
                           child: TextFormField(
+                            initialValue: items['prodname'],
                             style: const TextStyle(color: xBlack87),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -313,6 +235,7 @@ class EditProduct extends StatelessWidget {
                         SizedBox(
                           width: wmediaSize * 100,
                           child: TextFormField(
+                            initialValue: items['proddesc'],
                             style: const TextStyle(color: xBlack87),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -339,40 +262,71 @@ class EditProduct extends StatelessWidget {
                           width: double.infinity,
                           child: ePP.processing == true
                               ? const Center(child: CircularProgressIndicator())
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                              : Column(
                                   children: [
-                                    RawMaterialButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      padding: const EdgeInsets.all(15),
-                                      fillColor: xBlue,
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const TextTitle(
-                                          title: "Cancel",
-                                          color: xWhite,
-                                          ls: 0,
-                                          fontwght: FontWeight.normal,
-                                          fontsz: 16),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        RawMaterialButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          padding: const EdgeInsets.all(15),
+                                          fillColor: xBlue,
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const TextTitle(
+                                              title: "Cancel",
+                                              color: xWhite,
+                                              ls: 0,
+                                              fontwght: FontWeight.normal,
+                                              fontsz: 16),
+                                        ),
+                                        RawMaterialButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          padding: const EdgeInsets.all(15),
+                                          fillColor: xBlue,
+                                          onPressed: ePP.processing == true
+                                              ? null
+                                              : () {
+                                                  ePP.saveChanges(
+                                                      items,
+                                                      context,
+                                                      scaffoldKey,
+                                                      form);
+                                                },
+                                          child: const TextTitle(
+                                              title: "Save Changes",
+                                              color: xWhite,
+                                              ls: 0,
+                                              fontwght: FontWeight.normal,
+                                              fontsz: 16),
+                                        ),
+                                      ],
                                     ),
-                                    RawMaterialButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      padding: const EdgeInsets.all(15),
-                                      fillColor: xBlue,
-                                      onPressed:
-                                          ePP.processing == true ? null : () {},
-                                      child: const TextTitle(
-                                          title: "Save Changes",
-                                          color: xWhite,
-                                          ls: 0,
-                                          fontwght: FontWeight.normal,
-                                          fontsz: 16),
+                                    sizedBox,
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: RawMaterialButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        padding: const EdgeInsets.all(15),
+                                        fillColor: xBlue,
+                                        onPressed: () {
+                                          ePP.deleteProduct(items, context);
+                                        },
+                                        child: const TextTitle(
+                                            title: "Delete",
+                                            color: xWhite,
+                                            ls: 0,
+                                            fontwght: FontWeight.normal,
+                                            fontsz: 16),
+                                      ),
                                     ),
                                   ],
                                 ),

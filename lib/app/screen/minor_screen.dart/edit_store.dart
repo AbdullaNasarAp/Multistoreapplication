@@ -9,7 +9,7 @@ import 'package:siopa/app/widget/app_bar.dart';
 import 'package:siopa/app/widget/button_container.dart';
 
 class EditStoreScreen extends StatelessWidget {
-  EditStoreScreen({super.key, this.data});
+  const EditStoreScreen({super.key, this.data});
   final dynamic data;
   @override
   Widget build(BuildContext context) {

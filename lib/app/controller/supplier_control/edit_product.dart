@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as path;
 import 'package:siopa/app/screen/main_screens/costumer_screen/auth/widgets.dart';
 import 'package:siopa/app/utils/category_list.dart';
-import 'package:uuid/uuid.dart';
 import '../../utils/colors.dart';
 
 class EditProductProvider with ChangeNotifier {
@@ -23,19 +21,18 @@ class EditProductProvider with ChangeNotifier {
   List<String> subCategoryList = [];
 
   List<XFile>? imgFileList = [];
-  List<String> imgUrlList = [];
+  List<dynamic> imgUrlList = [];
   dynamic _pickImageError;
   final ImagePicker _picker = ImagePicker();
   bool processing = false;
 
-  Future<void> uploadImage(dynamic form, dynamic scaffoldKey) async {
-    if (mainCategoryValue != "Select Category" &&
-        subCategoryValue != "Subcategory") {
-      if (form.currentState!.validate()) {
-        form.currentState!.save();
-        if (imgFileList!.isNotEmpty) {
-          processing = true;
-          notifyListeners();
+  Future uploadPickedImges(
+      dynamic items, dynamic scaffoldKey, dynamic form) async {
+    if (form.currentState!.validate()) {
+      form.currentState!.save();
+      if (imgFileList!.isNotEmpty) {
+        if (mainCategoryValue != "Select Category" &&
+            subCategoryValue != "Subcategory") {
           try {
             for (var image in imgFileList!) {
               firebase_storage.Reference ref = firebase_storage
@@ -51,52 +48,42 @@ class EditProductProvider with ChangeNotifier {
             log("$e");
           }
         } else {
-          MyMessengerHelper.showSnackBar(scaffoldKey, "Pls pick the Images");
+          MyMessengerHelper.showSnackBar(
+              scaffoldKey, "Pls select the Category");
         }
       } else {
-        MyMessengerHelper.showSnackBar(scaffoldKey, "Pls fill all fields");
+        imgUrlList = items['prodimage'];
       }
     } else {
-      MyMessengerHelper.showSnackBar(scaffoldKey, "Pls select the Category");
+      MyMessengerHelper.showSnackBar(scaffoldKey, "Pls fill all fields");
     }
+
     notifyListeners();
   }
 
-  void uploadData(dynamic form) async {
-    if (imgUrlList.isNotEmpty) {
-      CollectionReference prodRef =
-          FirebaseFirestore.instance.collection("products");
-      prodId = const Uuid().v4();
-      log(prodId);
-      await prodRef.doc(prodId).set({
-        'productId': prodId,
-        'maincateg': mainCategoryValue,
-        'subcateg': subCategoryValue,
+  void editProduct(dynamic items, BuildContext context) async {
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentReference documentReference = FirebaseFirestore.instance
+          .collection('products')
+          .doc(items['productId']);
+      transaction.update(documentReference, {
+        // 'maincateg': mainCategoryValue,
+        // 'subcateg': subCategoryValue,
         'price': proPrice,
         'instock': quantity,
         'prodname': proName,
         'proddesc': proDesc,
-        'sid': FirebaseAuth.instance.currentUser!.uid,
         'prodimage': imgUrlList,
         'discount': discount
-      }).whenComplete(() {
-        processing = false;
-        imgFileList = [];
-        mainCategoryValue = 'Select Category';
-        subCategoryList = [];
-        imgUrlList = [];
-        notifyListeners();
-        form.currentState!.reset();
       });
-      notifyListeners();
-    } else {
-      log("No Images");
-    }
+    }).whenComplete(() => Navigator.pop(context));
     notifyListeners();
   }
 
-  void uploadProduct(dynamic form, dynamic scaffoldKey) async {
-    await uploadImage(form, scaffoldKey).whenComplete(() => uploadData(form));
+  void saveChanges(dynamic items, BuildContext context, dynamic scaffoldKey,
+      dynamic form) async {
+    await uploadPickedImges(items, scaffoldKey, form)
+        .whenComplete(() => editProduct(items, context));
     notifyListeners();
   }
 
@@ -144,6 +131,55 @@ class EditProductProvider with ChangeNotifier {
         return Image.network(itemsImages[index].toString());
       },
     );
+  }
+
+  deleteProduct(dynamic items, BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        backgroundColor: xWhite,
+        title: const Text(
+          "Delete Product",
+          style: TextStyle(color: xBlack),
+        ),
+        content: const Text(
+          "Are you sure to Delete the Product",
+          style: TextStyle(color: xBlack),
+        ),
+        actions: [
+          OutlinedButton(
+            style:
+                ButtonStyle(backgroundColor: MaterialStateProperty.all(xBlue)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text(
+              "No",
+              style: TextStyle(color: xWhite),
+            ),
+          ),
+          OutlinedButton(
+            style:
+                ButtonStyle(backgroundColor: MaterialStateProperty.all(xBlue)),
+            onPressed: () async {
+              await FirebaseFirestore.instance
+                  .runTransaction((transaction) async {
+                DocumentReference documentReference = FirebaseFirestore.instance
+                    .collection('products')
+                    .doc(items['productId']);
+                transaction.delete(documentReference);
+              }).whenComplete(() => Navigator.pop(context));
+            },
+            child: const Text(
+              "Yes",
+              style: TextStyle(color: xWhite),
+            ),
+          ),
+        ],
+      ),
+    );
+    notifyListeners();
   }
 
   void selectMainCateg(String? value) {

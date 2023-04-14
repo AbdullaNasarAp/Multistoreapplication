@@ -23,7 +23,7 @@ class CostumerLoginProvider with ChangeNotifier {
 
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => CostumerHomeScreen(),
+          builder: (context) => const CostumerHomeScreen(),
         ));
         processing = false;
         notifyListeners();

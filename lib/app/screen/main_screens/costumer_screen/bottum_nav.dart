@@ -5,7 +5,7 @@ import 'package:siopa/app/controller/costumer_control/cart.dart';
 import 'package:siopa/app/utils/colors.dart';
 
 class CostumerHomeScreen extends StatelessWidget {
-  CostumerHomeScreen({super.key});
+  const CostumerHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

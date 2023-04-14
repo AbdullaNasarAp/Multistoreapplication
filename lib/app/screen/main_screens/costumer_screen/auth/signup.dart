@@ -288,7 +288,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => CostumerHomeScreen(),
+                              builder: (context) => const CostumerHomeScreen(),
                             ));
                           },
                           child: cSp.processing == true
@@ -393,7 +393,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(
                                         builder: (context) =>
-                                            CostumerHomeScreen(),
+                                            const CostumerHomeScreen(),
                                       ));
                                     },
                                     child: Column(

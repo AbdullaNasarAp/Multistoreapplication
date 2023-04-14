@@ -7,7 +7,7 @@ import 'package:siopa/app/widget/button_container.dart';
 import '../../../controller/costumer_control/wishlist.dart';
 import 'package:collection/collection.dart';
 
-import '../../minor_screen.dart/edit_product.dart';
+import '../../minor_screen.dart/edit_prod/edit_product.dart';
 
 class ProductCardModel extends StatelessWidget {
   const ProductCardModel({

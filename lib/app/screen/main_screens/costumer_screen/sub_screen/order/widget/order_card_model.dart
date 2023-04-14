@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/costumer_control/order.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/auth/loginscreen.dart';
@@ -11,7 +7,7 @@ import 'package:siopa/app/widget/button_container.dart';
 import 'package:intl/intl.dart';
 
 class CostumerOrder extends StatelessWidget {
-  CostumerOrder({super.key, this.order});
+  const CostumerOrder({super.key, this.order});
   final dynamic order;
 
   @override

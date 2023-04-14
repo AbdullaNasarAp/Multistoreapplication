@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:siopa/app/screen/main_screens/widget/product_card_model.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/widget/bottum_sheet.dart';
 import 'package:siopa/app/screen/minor_screen.dart/product_details/widget/prod_detail_header.dart';
