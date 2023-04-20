@@ -58,6 +58,7 @@ dependencies:
   http: ^0.13.5
   flutter_rating_bar: ^4.0.1
   expandable: ^5.0.1
+  country_state_city_picker: ^1.2.8
 
 dev_dependencies:
   flutter_test:

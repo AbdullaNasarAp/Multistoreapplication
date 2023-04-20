@@ -22,9 +22,13 @@ class CostumerLoginProvider with ChangeNotifier {
         formKey.currentState!.reset();
 
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const CostumerHomeScreen(),
-        ));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CostumerHomeScreen(),
+          ),
+          (route) => false,
+        );
         processing = false;
         notifyListeners();
       } on FirebaseAuthException catch (e) {

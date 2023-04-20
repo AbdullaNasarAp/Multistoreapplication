@@ -62,60 +62,7 @@ class CostumerSignUpScreen extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          height: 200,
-                          margin: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: xBlack87,
-                            borderRadius: BorderRadius.circular(30),
-                            boxShadow: [
-                              BoxShadow(
-                                color: xBlue.withOpacity(0.3),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned(
-                                    top: -20,
-                                    left: -50,
-                                    child: Container(
-                                        height: 250,
-                                        width: 250,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: xBlue.withOpacity(0.1)))),
-                                Positioned(
-                                    left: -80,
-                                    top: -50,
-                                    child: Container(
-                                        height: 180,
-                                        width: 180,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: xBlack.withOpacity(0.5)))),
-                                Positioned(
-                                  child: Container(
-                                      height: 250,
-                                      alignment: Alignment.center,
-                                      child: const Text(
-                                        "Costumer Signup",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      )),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                        const CostumContainer(),
                         const SizedBox(
                           height: 30,
                         ),
@@ -429,6 +376,70 @@ class CostumerSignUpScreen extends StatelessWidget {
               ),
             )),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class CostumContainer extends StatelessWidget {
+  const CostumContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: xBlack87,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: xBlue.withOpacity(0.3),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+                top: -20,
+                left: -50,
+                child: Container(
+                    height: 250,
+                    width: 250,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: xBlue.withOpacity(0.1)))),
+            Positioned(
+                left: -80,
+                top: -50,
+                child: Container(
+                    height: 180,
+                    width: 180,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: xBlack.withOpacity(0.5)))),
+            Positioned(
+              child: Container(
+                  height: 250,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Costumer Signup",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
+                  )),
+            )
+          ],
         ),
       ),
     );

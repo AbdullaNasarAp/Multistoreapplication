@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/address.dart';
 import 'package:siopa/app/controller/costumer_control/b_nav.dart';
 import 'package:siopa/app/controller/costumer_control/c_login_c.dart';
 import 'package:siopa/app/controller/costumer_control/c_signup_c.dart';
@@ -64,7 +65,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => EditStoreProvider()),
         ChangeNotifierProvider(
             create: (context) => CostumerHomeScreenProvider()),
-        ChangeNotifierProvider(create: (context) => EditProductProvider())
+        ChangeNotifierProvider(create: (context) => EditProductProvider()),
+        ChangeNotifierProvider(create: (context) => AddressProvider())
       ],
       child: MaterialApp(
         // setup theme for the application

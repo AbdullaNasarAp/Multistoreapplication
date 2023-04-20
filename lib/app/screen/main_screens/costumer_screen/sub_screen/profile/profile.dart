@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:siopa/app/controller/costumer_control/address.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/auth/loginscreen.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile/widget/alert.dart';
 import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile/widget/cart_order_wish.dart';
@@ -8,6 +10,7 @@ import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile
 import 'package:siopa/app/screen/main_screens/costumer_screen/sub_screen/profile/widget/sliver_costum_app_bar.dart';
 import 'package:siopa/app/utils/colors.dart';
 import '../../../../../widget/cpi.dart';
+import 'widget/add_address.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.docId});
@@ -67,25 +70,43 @@ class ProfileScreen extends StatelessWidget {
                                 const ProfileHeader(
                                   title: "  Account Info  ",
                                 ),
-                                InfoCard(
-                                  icondata1: Icons.email,
-                                  title1: "Email Address",
-                                  sub1: data['email'] == ''
-                                      ? 'guest@guest.com'
-                                      : data['email'],
-                                  ontap1: () {},
-                                  title2: "Phone Number",
-                                  icondata2: Icons.phone,
-                                  sub2: data['phone'] == ''
-                                      ? 'No Phone'
-                                      : data['phone'],
-                                  ontap2: () {},
-                                  title3: "Address",
-                                  icondata3: Icons.location_pin,
-                                  sub3: data['address'] == ''
-                                      ? 'No Address'
-                                      : data['address'],
-                                  ontap3: () {},
+                                Consumer<AddressProvider>(
+                                  builder: (context, aP, child) {
+                                    return InfoCard(
+                                      icondata1: Icons.email,
+                                      title1: "Email Address",
+                                      sub1: data['email'] == ''
+                                          ? 'guest@guest.com'
+                                          : data['email'],
+                                      ontap1: () {},
+                                      title2: "Phone Number",
+                                      icondata2: Icons.phone,
+                                      sub2: data['phone'] == ''
+                                          ? 'No Phone'
+                                          : data['phone'],
+                                      ontap2: () {},
+                                      title3: "Address",
+                                      icondata3: Icons.location_pin,
+                                      sub3: aP.userAddress(data),
+                                      /*
+                                     data['address'] == ''
+                                        ? 'No Address'
+                                        : data['address'],
+                                    */
+
+                                      ontap3: FirebaseAuth
+                                              .instance.currentUser!.isAnonymous
+                                          ? () {
+                                              null;
+                                            }
+                                          : () {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AddAddress()));
+                                            },
+                                    );
+                                  },
                                 ),
                                 const ProfileHeader(
                                     title: "  Account Settings  "),
