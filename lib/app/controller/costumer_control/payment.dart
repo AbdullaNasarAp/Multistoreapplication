@@ -25,7 +25,13 @@ class PaymentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void paymentSuccess(AsyncSnapshot snapshot, BuildContext context) async {
+  void paymentSuccess(
+    AsyncSnapshot snapshot,
+    BuildContext context,
+    String name,
+    String address,
+    String phone,
+  ) async {
     Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
     for (var item in context.read<CartProvider>().getItems) {
       CollectionReference orderRef =
@@ -33,10 +39,10 @@ class PaymentProvider with ChangeNotifier {
       orderId = const Uuid().v4();
       await orderRef.doc(orderId).set({
         'cid': data['cid'],
-        'custname': data['name'],
+        'custname': name,
         'email': data['email'],
-        'address': data['address'],
-        'phone': data['phone'],
+        'address': address,
+        'phone': phone,
         'sid': item.suppId,
         'prodid': item.documentId,
         'prodname': item.name,

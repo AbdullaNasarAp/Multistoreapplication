@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:siopa/app/controller/supplier_control/s_login_c.dart';
@@ -111,8 +112,29 @@ class SupplierLoginScreen extends StatelessWidget {
                           key: formKey,
                           child: Column(
                             children: [
-                              const SizedBox(
+                              SizedBox(
                                 height: 20,
+                                child: sLp.sendEmailVerification == true
+                                    ? Center(
+                                        child: RawMaterialButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          padding: const EdgeInsets.all(15),
+                                          fillColor: xBlue,
+                                          onPressed: () async {
+                                            sLp.resendEmailVerification();
+                                          },
+                                          child: const TextTitle(
+                                              title:
+                                                  "Resend Email Verification",
+                                              color: xWhite,
+                                              ls: 0,
+                                              fontwght: FontWeight.normal,
+                                              fontsz: 16),
+                                        ),
+                                      )
+                                    : sizedBox,
                               ),
                               TextFormField(
                                 validator: (value) {

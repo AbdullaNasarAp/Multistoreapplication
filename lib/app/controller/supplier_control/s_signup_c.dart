@@ -22,6 +22,9 @@ class SupplierSignupProvider with ChangeNotifier {
   final ImagePicker _picker = ImagePicker();
   CollectionReference suppliers =
       FirebaseFirestore.instance.collection('suppliers');
+
+/////////////////////////////////////////////////////////////////////////////
+
   signUp(BuildContext context, dynamic scaffoldKeys, dynamic formKey) async {
     processing = true;
 
@@ -34,6 +37,12 @@ class SupplierSignupProvider with ChangeNotifier {
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
                 email: email, password: password);
 
+            try {
+              await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+            } catch (e) {
+              log(e.toString());
+            }
+
             firebasestorage.Reference ref = firebasestorage
                 .FirebaseStorage.instance
                 .ref('sup-images/$email.jpg');
@@ -41,6 +50,10 @@ class SupplierSignupProvider with ChangeNotifier {
 
             uid = FirebaseAuth.instance.currentUser!.uid;
             storeLogo = await ref.getDownloadURL();
+
+            await FirebaseAuth.instance.currentUser!
+                .updateDisplayName(storeName);
+            await FirebaseAuth.instance.currentUser!.updatePhotoURL(storeLogo);
             await suppliers.doc(uid).set({
               'storename': storeName,
               'email': email,
@@ -90,6 +103,7 @@ class SupplierSignupProvider with ChangeNotifier {
     notifyListeners();
   }
 
+////////////////////////////////////////////////////////////////////////////////////
   void pickImageFromCamera() async {
     try {
       final pickedImage = await _picker.pickImage(

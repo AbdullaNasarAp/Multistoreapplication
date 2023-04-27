@@ -329,26 +329,18 @@ class SupplierSignUpScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const SupplierHomeScreen(),
-                            ));
+                            sSp.signUp(context, scaffoldKeys, formKey);
                           },
-                          child: InkWell(
-                            onTap: () {
-                              sSp.signUp(context, scaffoldKeys, formKey);
-                            },
-                            child: const ButtonContainer(
-                              kWidth: 400,
-                              kHeight: 50,
-                              kColors: xBlue,
-                              title: "Sign Up",
-                              ls: 0,
-                              fontwght: FontWeight.normal,
-                              fontsz: 14,
-                              bRadius: 25,
-                              icons: Icons.arrow_forward,
-                            ),
+                          child: const ButtonContainer(
+                            kWidth: 400,
+                            kHeight: 50,
+                            kColors: xBlue,
+                            title: "Sign Up",
+                            ls: 0,
+                            fontwght: FontWeight.normal,
+                            fontsz: 14,
+                            bRadius: 25,
+                            icons: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(

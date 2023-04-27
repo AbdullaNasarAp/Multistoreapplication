@@ -8,7 +8,8 @@ class SupplierLoginProvider with ChangeNotifier {
 
   late String email;
   late String password;
-  bool passwordVisible = true;
+  bool passwordVisible = false;
+  bool sendEmailVerification = false;
 
   login(BuildContext context, dynamic formKey, dynamic scaffoldKey) async {
     processing = true;
@@ -18,13 +19,20 @@ class SupplierLoginProvider with ChangeNotifier {
       try {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
+        await FirebaseAuth.instance.currentUser!.reload();
+        if (FirebaseAuth.instance.currentUser!.emailVerified) {
+          formKey.currentState!.reset();
 
-        formKey.currentState!.reset();
-
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const SupplierHomeScreen(),
-        ));
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const SupplierHomeScreen(),
+          ));
+        } else {
+          MyMessengerHelper.showSnackBar(scaffoldKey, "Pls Check your inbox");
+          processing = false;
+          sendEmailVerification = true;
+          notifyListeners();
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           processing = false;
@@ -44,11 +52,23 @@ class SupplierLoginProvider with ChangeNotifier {
       notifyListeners();
       MyMessengerHelper.showSnackBar(scaffoldKey, "Pls fill all fields");
     }
+
     notifyListeners();
   }
 
   void passwordVisibily() {
     passwordVisible = !passwordVisible;
+    notifyListeners();
+  }
+
+  void resendEmailVerification() async {
+    await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+
+    Future.delayed(const Duration(seconds: 3)).whenComplete(() {
+      sendEmailVerification = false;
+      notifyListeners();
+    });
+
     notifyListeners();
   }
 }

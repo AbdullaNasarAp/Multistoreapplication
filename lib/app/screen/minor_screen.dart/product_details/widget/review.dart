@@ -52,22 +52,16 @@ class ReviewExpanded extends StatelessWidget {
         }
 
         if (snapshot.data!.docs.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "images/inapp/empty.png",
-                  height: 250,
-                  width: 250,
-                ),
-                const TextTitle(
-                  title: "Ohh reviews is Empty!!",
-                  ls: 0,
-                  fontwght: FontWeight.normal,
-                  fontsz: 15,
-                )
-              ],
+          return const Center(
+            child: SizedBox(
+              height: 50,
+              width: 200,
+              child: TextTitle(
+                title: "Ohh reviews is Empty!!",
+                ls: 0,
+                fontwght: FontWeight.normal,
+                fontsz: 15,
+              ),
             ),
           );
         }

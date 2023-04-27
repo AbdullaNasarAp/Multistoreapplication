@@ -12,7 +12,16 @@ import 'package:siopa/app/widget/button_container.dart';
 import 'package:siopa/app/widget/payment_radio.dart';
 
 class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+  const PaymentScreen({
+    super.key,
+    required this.name,
+    required this.phone,
+    required this.address,
+  });
+
+  final String name;
+  final String phone;
+  final String address;
   @override
   Widget build(BuildContext context) {
     final totalPrice = context.watch<CartProvider>().totalPrice;
@@ -238,7 +247,12 @@ class PaymentScreen extends StatelessWidget {
                                               onTap: () async {
                                                 value.showProgress(context);
                                                 value.paymentSuccess(
-                                                    snapshot, context);
+                                                  snapshot,
+                                                  context,
+                                                  name,
+                                                  address,
+                                                  phone,
+                                                );
                                               },
                                               child: const ButtonContainer(
                                                   kWidth: double.maxFinite,

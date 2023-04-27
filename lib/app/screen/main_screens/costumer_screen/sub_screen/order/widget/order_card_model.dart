@@ -89,7 +89,7 @@ class CostumerOrder extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              height: 250,
+              height: 290,
               decoration: BoxDecoration(
                   color: order['deliverystatus'] == 'Delivered'
                       ? Colors.red.shade200
